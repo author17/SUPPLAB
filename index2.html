@@ -8,8 +8,7 @@
 
 <style>
 /* =========================================================
-   SUPPLAB MARKETPLACE
-   COMPLETE CAROUSEL & PRODUCT VERSION
+   SUPPLAB MARKETPLACE - 7 CAROUSEL FULL VERSION
 ========================================================= */
 
 *{
@@ -663,45 +662,6 @@ button{
 }
 
 /* =========================================================
-   CATEGORY GRID
-========================================================= */
-
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:14px;
-}
-
-.category-card{
-  min-height:150px;
-  padding:18px;
-  background:var(--blue-soft);
-  border:1px solid #cce5ed;
-  border-radius:5px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  transition:.2s;
-}
-
-.category-card:hover{
-  background:var(--blue);
-  color:#fff;
-  transform:translateY(-3px);
-}
-
-.category-icon{
-  font-size:38px;
-  margin-bottom:12px;
-}
-
-.category-card h3{
-  font-size:14px;
-}
-
-/* =========================================================
    FOOTER & TOAST
 ========================================================= */
 
@@ -790,7 +750,6 @@ footer{
   .header{ flex-wrap:wrap; }
   .logo{ min-width:auto; }
   .search-box{ order:3; flex-basis:100%; max-width:none; }
-  .category-grid{ grid-template-columns:repeat(3,1fr); }
   .offers-grid{ grid-template-columns:1fr 1fr; }
   .product-card{ flex:0 0 calc((100% - 16px) / 2); }
 }
@@ -799,7 +758,6 @@ footer{
   .header-actions{ margin-left:auto; gap:8px; }
   .header-action span:last-child{ display:none; }
   .product-card{ flex:0 0 calc((100% - 16px) / 2); }
-  .category-grid{ grid-template-columns:repeat(2,1fr); }
   .offers-grid{ grid-template-columns:1fr; }
 }
 </style>
@@ -828,11 +786,13 @@ footer{
 
 <nav class="navigation">
   <div class="nav-container">
-    <a class="nav-link" href="#supplements">Supplements</a>
+    <a class="nav-link" href="#popular">Popular</a>
     <a class="nav-link" href="#sports">Sports Nutrition</a>
-    <a class="nav-link" href="#personal-care">Personal Care</a>
-    <a class="nav-link" href="#beauty">Beauty</a>
-    <a class="nav-link" href="#grocery">Grocery</a>
+    <a class="nav-link" href="#vitamins">Vitamins</a>
+    <a class="nav-link" href="#beauty">Beauty & Skin</a>
+    <a class="nav-link" href="#personal">Personal Care</a>
+    <a class="nav-link" href="#grocery">Health Grocery</a>
+    <a class="nav-link" href="#trending">Trending</a>
     <a class="nav-link deals" href="#offers">Deals</a>
   </div>
 </nav>
@@ -857,7 +817,7 @@ footer{
 </section>
 
 <!-- =========================================================
-   POPULAR CAROUSEL
+   CAROUSEL 1: POPULAR RIGHT NOW
 ========================================================= -->
 <section class="section" id="popular">
   <div class="section-header">
@@ -870,97 +830,53 @@ footer{
   <div class="carousel-container">
     <div class="carousel-window">
       <div class="product-track" id="popularTrack">
-        
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">BESTSELLER</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Whey Protein">
-          </div>
+          <div class="product-image"><span class="product-badge">BESTSELLER</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Whey"></div>
           <div class="product-info">
             <div class="product-brand">SUPPLAB NUTRITION</div>
             <div class="product-name">Pure Whey Protein Isolate 1kg</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(124)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€39.99</span>
-              <span class="old-price">€49.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(124)</span></div>
+            <div class="price-row"><span class="price">€39.99</span><span class="old-price">€49.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge red">SALE</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" alt="Multivitamin">
-          </div>
+          <div class="product-image"><span class="product-badge red">SALE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" alt="Multi"></div>
           <div class="product-info">
             <div class="product-brand">VITAHEALTH</div>
             <div class="product-name">Complete Daily Multivitamin 90 Caps</div>
-            <div class="rating-row">
-              <span class="stars">★★★★☆</span>
-              <span class="review-count">(89)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€19.99</span>
-              <span class="old-price">€24.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(89)</span></div>
+            <div class="price-row"><span class="price">€19.99</span><span class="old-price">€24.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">NEW</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&w=600&q=80" alt="Omega 3">
-          </div>
+          <div class="product-image"><span class="product-badge">NEW</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&w=600&q=80" alt="Omega"></div>
           <div class="product-info">
             <div class="product-brand">OCEAN PURE</div>
             <div class="product-name">Ultra-Pure Omega-3 Fish Oil 120 Softgels</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(210)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€22.50</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(210)</span></div>
+            <div class="price-row"><span class="price">€22.50</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">POPULAR</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Creatine">
-          </div>
+          <div class="product-image"><span class="product-badge">POPULAR</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Creatine"></div>
           <div class="product-info">
             <div class="product-brand">MAXPERFORMANCE</div>
             <div class="product-name">Micronized Creatine Monohydrate 500g</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(340)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€26.99</span>
-              <span class="old-price">€32.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(340)</span></div>
+            <div class="price-row"><span class="price">€26.99</span><span class="old-price">€32.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </section>
 
 <!-- =========================================================
-   SPORTS NUTRITION CAROUSEL
+   CAROUSEL 2: SPORTS NUTRITION ESSENTIALS
 ========================================================= -->
 <section class="section green-section" id="sports">
   <div class="section-header">
@@ -973,88 +889,341 @@ footer{
   <div class="carousel-container">
     <div class="carousel-window">
       <div class="product-track" id="sportsTrack">
-        
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">ENERGY</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1579722820308-d7ccfbe490d0?auto=format&fit=crop&w=600&q=80" alt="Pre-Workout">
-          </div>
+          <div class="product-image"><span class="product-badge">ENERGY</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1579722820308-d7ccfbe490d0?auto=format&fit=crop&w=600&q=80" alt="Pre"></div>
           <div class="product-info">
             <div class="product-brand">NITROGEN</div>
             <div class="product-name">Extreme Pre-Workout Energy Blast 300g</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(95)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€34.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(95)</span></div>
+            <div class="price-row"><span class="price">€34.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge red">SALE</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="BCAA">
-          </div>
+          <div class="product-image"><span class="product-badge red">SALE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="BCAA"></div>
           <div class="product-info">
             <div class="product-brand">SUPPLAB NUTRITION</div>
             <div class="product-name">BCAA 2:1:1 Recovery Powder 400g</div>
-            <div class="rating-row">
-              <span class="stars">★★★★☆</span>
-              <span class="review-count">(64)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€24.99</span>
-              <span class="old-price">€29.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(64)</span></div>
+            <div class="price-row"><span class="price">€24.99</span><span class="old-price">€29.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">PRO</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Mass Gainer">
-          </div>
+          <div class="product-image"><span class="product-badge">PRO</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Gainer"></div>
           <div class="product-info">
             <div class="product-brand">MASSIVE</div>
             <div class="product-name">Heavyweight Mass Gainer 2.5kg</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(42)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€49.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(42)</span></div>
+            <div class="price-row"><span class="price">€49.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
-
         <div class="product-card">
-          <div class="product-image">
-            <span class="product-badge">PURE</span>
-            <button class="product-heart">♡</button>
-            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Glutamine">
-          </div>
+          <div class="product-image"><span class="product-badge">PURE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Glutamine"></div>
           <div class="product-info">
             <div class="product-brand">MAXPERFORMANCE</div>
             <div class="product-name">Pure L-Glutamine Recovery Powder 300g</div>
-            <div class="rating-row">
-              <span class="stars">★★★★★</span>
-              <span class="review-count">(78)</span>
-            </div>
-            <div class="price-row">
-              <span class="price">€21.99</span>
-            </div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(78)</span></div>
+            <div class="price-row"><span class="price">€21.99</span></div>
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- =========================================================
+   CAROUSEL 3: VITAMINS & WELLNESS
+========================================================= -->
+<section class="section" id="vitamins">
+  <div class="section-header">
+    <h2 class="section-title">💊 Vitamins & <span>Wellness Boosters</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('vitaminsTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('vitaminsTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="vitaminsTrack">
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">IMMUNITY</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" alt="VitC"></div>
+          <div class="product-info">
+            <div class="product-brand">VITAHEALTH</div>
+            <div class="product-name">Buffered Vitamin C 1000mg with Rose Hips</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(156)</span></div>
+            <div class="price-row"><span class="price">€14.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge red">POPULAR</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="VitD"></div>
+          <div class="product-info">
+            <div class="product-brand">SOLARAY</div>
+            <div class="product-name">Vitamin D3 5000 IU High Potency Liquid Softgels</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(230)</span></div>
+            <div class="price-row"><span class="price">€12.50</span><span class="old-price">€16.00</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">ORGANIC</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&w=600&q=80" alt="Magnesium"></div>
+          <div class="product-info">
+            <div class="product-brand">NATURES BEST</div>
+            <div class="product-name">Magnesium Glycinate Relax Complex 120 Tabs</div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(92)</span></div>
+            <div class="price-row"><span class="price">€18.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">DEFENSE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Zinc"></div>
+          <div class="product-info">
+            <div class="product-brand">VITAHEALTH</div>
+            <div class="product-name">Chelated Zinc Picolinate 25mg 90 Veg Caps</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(81)</span></div>
+            <div class="price-row"><span class="price">€9.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+   CAROUSEL 4: BEAUTY & SKINCARE
+========================================================= -->
+<section class="section green-section" id="beauty">
+  <div class="section-header">
+    <h2 class="section-title">✨ Beauty & <span>Skincare Essentials</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('beautyTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('beautyTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="beautyTrack">
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">GLOW</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80" alt="Serum"></div>
+          <div class="product-info">
+            <div class="product-brand">LUMINA SKIN</div>
+            <div class="product-name">Hyaluronic Acid & Vitamin C Facial Serum</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(178)</span></div>
+            <div class="price-row"><span class="price">€28.00</span><span class="old-price">€35.00</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge red">SALE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80" alt="Collagen"></div>
+          <div class="product-info">
+            <div class="product-brand">GLOW NUTRITION</div>
+            <div class="product-name">Hydrolyzed Marine Collagen Peptides 300g</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(245)</span></div>
+            <div class="price-row"><span class="price">€31.99</span><span class="old-price">€39.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">ORGANIC</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80" alt="Moisturizer"></div>
+          <div class="product-info">
+            <div class="product-brand">BOTANICA</div>
+            <div class="product-name">Deep Hydration Organic Night Cream 50ml</div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(67)</span></div>
+            <div class="price-row"><span class="price">€24.50</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">PURE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1608248597359-994640109968?auto=format&fit=crop&w=600&q=80" alt="Oil"></div>
+          <div class="product-info">
+            <div class="product-brand">LUMINA SKIN</div>
+            <div class="product-name">Cold-Pressed Organic Argan Hair & Face Oil</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(112)</span></div>
+            <div class="price-row"><span class="price">€21.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+   CAROUSEL 5: PERSONAL CARE
+========================================================= -->
+<section class="section" id="personal">
+  <div class="section-header">
+    <h2 class="section-title">🧴 Personal Care & <span>Hygiene</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('personalTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('personalTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="personalTrack">
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">NATURAL</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80" alt="Shampoo"></div>
+          <div class="product-info">
+            <div class="product-brand">ECOHAIR</div>
+            <div class="product-name">Strengthening Biotin & Tea Tree Shampoo 400ml</div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(74)</span></div>
+            <div class="price-row"><span class="price">€15.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge red">SALE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&w=600&q=80" alt="Deodorant"></div>
+          <div class="product-info">
+            <div class="product-brand">PUREBODY</div>
+            <div class="product-name">Aluminium-Free Mineral Deodorant Stick</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count)(138)</span></div>
+            <div class="price-row"><span class="price">€9.50</span><span class="old-price">€12.00</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">ORGANIC</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1556228726-95c206ab963f?auto=format&fit=crop&w=600&q=80" alt="Body Wash"></div>
+          <div class="product-info">
+            <div class="product-brand">BOTANICA</div>
+            <div class="product-name">Calming Lavender & Eucalyptus Body Wash 500ml</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(88)</span></div>
+            <div class="price-row"><span class="price">€13.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">GENTLE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1585751119414-ef2636f9aede?auto=format&fit=crop&w=600&q=80" alt="Toothpaste"></div>
+          <div class="product-info">
+            <div class="product-brand">SMILEPURE</div>
+            <div class="product-name">Activated Charcoal Natural Whitening Toothpaste</div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(96)</span></div>
+            <div class="price-row"><span class="price">€7.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+   CAROUSEL 6: HEALTHY GROCERY & SUPERFOODS
+========================================================= -->
+<section class="section green-section" id="grocery">
+  <div class="section-header">
+    <h2 class="section-title">🥑 Healthy Grocery & <span>Superfoods</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('groceryTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('groceryTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="groceryTrack">
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">ORGANIC</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80" alt="Peanut Butter"></div>
+          <div class="product-info">
+            <div class="product-brand">NUTS & CO</div>
+            <div class="product-name">100% Organic Crunchy Peanut Butter 1kg</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(310)</span></div>
+            <div class="price-row"><span class="price">€11.99</span><span class="old-price">€14.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge red">SUPERFOOD</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?auto=format&fit=crop&w=600&q=80" alt="Matcha"></div>
+          <div class="product-info">
+            <div class="product-brand">MATCHA GREEN</div>
+            <div class="product-name">Ceremonial Grade Organic Japanese Matcha 100g</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(188)</span></div>
+            <div class="price-row"><span class="price">€22.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">PURE</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1516594798947-e65505dbb29d?auto=format&fit=crop&w=600&q=80" alt="Honey"></div>
+          <div class="product-info">
+            <div class="product-brand">APIARY GOLD</div>
+            <div class="product-name">Raw Wildflower Organic Honey 500g</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(142)</span></div>
+            <div class="price-row"><span class="price">€12.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">SEEDS</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1515942661992-0d68ba05b227?auto=format&fit=crop&w=600&q=80" alt="Chia"></div>
+          <div class="product-info">
+            <div class="product-brand">NATURES BEST</div>
+            <div class="product-name">Organic Black Chia Seeds Superfood 500g</div>
+            <div class="rating-row"><span class="stars">★★★★☆</span><span class="review-count">(76)</span></div>
+            <div class="price-row"><span class="price">€6.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+   CAROUSEL 7: TRENDING & NEW RELEASES
+========================================================= -->
+<section class="section" id="trending">
+  <div class="section-header">
+    <h2 class="section-title">🚀 Trending & <span>New Releases</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('trendingTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('trendingTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="trendingTrack">
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">HOT</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80" alt="Shaker"></div>
+          <div class="product-info">
+            <div class="product-brand">SUPPLAB GEAR</div>
+            <div class="product-name">Pro Stainless Steel Insulated Shaker Bottle 750ml</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(165)</span></div>
+            <div class="price-row"><span class="price">€19.99</span><span class="old-price">€24.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge red">NEW</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Vegan"></div>
+          <div class="product-info">
+            <div class="product-brand">VEGANPOWER</div>
+            <div class="product-name">Plant-Based Pea & Hemp Protein Blend 900g</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(84)</span></div>
+            <div class="price-row"><span class="price">€37.50</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">RESTOCKED</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&w=600&q=80" alt="Sleep"></div>
+          <div class="product-info">
+            <div class="product-brand">VITAHEALTH</div>
+            <div class="product-name">Deep Sleep Nighttime Formula with Melatonin</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(192)</span></div>
+            <div class="price-row"><span class="price">€16.99</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image"><span class="product-badge">LIMITED</span><button class="product-heart">♡</button><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Electrolytes"></div>
+          <div class="product-info">
+            <div class="product-brand">HYDRATE+</div>
+            <div class="product-name">Advanced Hydration Electrolyte Drink Mix 30 Pack</div>
+            <div class="rating-row"><span class="stars">★★★★★</span><span class="review-count">(120)</span></div>
+            <div class="price-row"><span class="price">€21.50</span><span class="old-price">€26.00</span></div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1086,23 +1255,6 @@ footer{
       <p>Join rewards for member-only offers.</p>
       <div class="offer-code"><strong>REWARDS5</strong><button class="offer-copy">COPY</button></div>
     </article>
-  </div>
-</section>
-
-<!-- =========================================================
-   CATEGORIES
-========================================================= -->
-<section class="section" id="supplements">
-  <div class="section-header">
-    <h2 class="section-title">Shop by <span>Category</span></h2>
-  </div>
-  <div class="category-grid">
-    <a href="#" class="category-card"><div class="category-icon">💊</div><h3>Vitamins</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🏋️</div><h3>Sports Nutrition</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">✨</div><h3>Beauty</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🧴</div><h3>Personal Care</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🥑</div><h3>Grocery</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🐶</div><h3>Pets</h3></a>
   </div>
 </section>
 
