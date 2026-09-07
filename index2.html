@@ -9,7 +9,7 @@
 <style>
 /* =========================================================
    SUPPLAB MARKETPLACE
-   MANUAL CAROUSEL VERSION
+   COMPLETE CAROUSEL & PRODUCT VERSION
 ========================================================= */
 
 *{
@@ -242,13 +242,6 @@ button{
   color:var(--red);
 }
 
-.nav-link.sale{
-  background:var(--cyan);
-  color:var(--black);
-  padding:7px 12px;
-  border-radius:3px;
-}
-
 /* =========================================================
    HERO
 ========================================================= */
@@ -258,7 +251,6 @@ button{
   min-height:430px;
   border-radius:6px;
   overflow:hidden;
-
   background:
     linear-gradient(
       90deg,
@@ -268,7 +260,6 @@ button{
     ),
     url("https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1800&q=85")
     center/cover;
-
   display:flex;
   align-items:center;
 }
@@ -397,14 +388,8 @@ button{
   color:var(--blue);
 }
 
-.view-all{
-  color:var(--blue);
-  font-size:14px;
-  font-weight:800;
-}
-
 /* =========================================================
-   MANUAL CAROUSEL
+   CAROUSEL CONTAINER & CARDS
 ========================================================= */
 
 .carousel-container{
@@ -489,10 +474,6 @@ button{
   font-size:18px;
 }
 
-.product-heart.active{
-  color:var(--red);
-}
-
 .product-info{
   padding:15px;
 }
@@ -564,7 +545,7 @@ button{
   background:var(--blue-dark);
 }
 
-/* CAROUSEL ARROWS */
+/* CAROUSEL CONTROLS */
 
 .carousel-controls{
   display:flex;
@@ -587,52 +568,8 @@ button{
   color:#fff;
 }
 
-.carousel-control:disabled{
-  opacity:.35;
-  cursor:not-allowed;
-}
-
 /* =========================================================
-   CATEGORY
-========================================================= */
-
-.category-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:14px;
-}
-
-.category-card{
-  min-height:150px;
-  padding:18px;
-  background:var(--blue-soft);
-  border:1px solid #cce5ed;
-  border-radius:5px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  transition:.2s;
-}
-
-.category-card:hover{
-  background:var(--blue);
-  color:#fff;
-  transform:translateY(-3px);
-}
-
-.category-icon{
-  font-size:38px;
-  margin-bottom:12px;
-}
-
-.category-card h3{
-  font-size:14px;
-}
-
-/* =========================================================
-   OFFERS / DEALS
+   OFFERS SECTION
 ========================================================= */
 
 .offers-section{
@@ -725,100 +662,47 @@ button{
   background:var(--blue-dark);
 }
 
-.offer-shop{
-  width:100%;
-  min-height:42px;
-  border:0;
-  background:var(--black);
-  color:#fff;
-  border-radius:3px;
-  font-weight:900;
-}
-
-.offer-card.flash .offer-shop{
-  background:var(--cyan);
-  color:var(--black);
-}
-
-.offer-card.rewards-offer .offer-shop{
-  background:var(--cyan);
-  color:var(--black);
-}
-
 /* =========================================================
-   REWARDS
+   CATEGORY GRID
 ========================================================= */
 
-.rewards{
-  margin:15px 4% 45px;
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:14px;
+}
+
+.category-card{
+  min-height:150px;
+  padding:18px;
+  background:var(--blue-soft);
+  border:1px solid #cce5ed;
+  border-radius:5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:.2s;
+}
+
+.category-card:hover{
   background:var(--blue);
   color:#fff;
-  padding:40px 45px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:30px;
-  border-radius:5px;
+  transform:translateY(-3px);
 }
 
-.rewards h2{
-  font-size:32px;
-  margin-bottom:9px;
+.category-icon{
+  font-size:38px;
+  margin-bottom:12px;
 }
 
-.rewards p{
-  line-height:1.5;
-  color:#e0f2fe;
+.category-card h3{
+  font-size:14px;
 }
 
 /* =========================================================
-   NEWSLETTER
-========================================================= */
-
-.newsletter{
-  background:var(--blue-soft);
-  padding:55px 4%;
-  text-align:center;
-  border-top:1px solid #cce5ed;
-  border-bottom:1px solid #cce5ed;
-}
-
-.newsletter h2{
-  font-size:30px;
-  margin-bottom:10px;
-}
-
-.newsletter p{
-  color:var(--muted);
-  margin-bottom:25px;
-}
-
-.newsletter-form{
-  display:flex;
-  max-width:600px;
-  margin:auto;
-}
-
-.newsletter-form input{
-  flex:1;
-  height:48px;
-  border:1px solid #bbb;
-  padding:0 18px;
-  outline:none;
-  border-radius:3px 0 0 3px;
-}
-
-.newsletter-form button{
-  min-width:125px;
-  background:var(--black);
-  color:#fff;
-  border:0;
-  font-weight:900;
-  border-radius:0 3px 3px 0;
-}
-
-/* =========================================================
-   FOOTER
+   FOOTER & TOAST
 ========================================================= */
 
 footer{
@@ -877,38 +761,6 @@ footer{
   gap:20px;
   color:#888;
   font-size:12px;
-}
-
-/* =========================================================
-   SEARCH RESULTS & TOAST
-========================================================= */
-
-.search-results{
-  display:none;
-  position:fixed;
-  z-index:500;
-  top:120px;
-  left:50%;
-  transform:translateX(-50%);
-  width:min(850px,92%);
-  max-height:70vh;
-  overflow-y:auto;
-  background:#fff;
-  border:1px solid var(--border);
-  box-shadow:0 15px 50px rgba(0,0,0,.2);
-  border-radius:5px;
-}
-
-.search-results.active{
-  display:block;
-}
-
-.search-result-item{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  padding:13px;
-  border-bottom:1px solid #eee;
 }
 
 .toast{
@@ -974,8 +826,6 @@ footer{
   </div>
 </header>
 
-<div class="search-results" id="searchResults"></div>
-
 <nav class="navigation">
   <div class="nav-container">
     <a class="nav-link" href="#supplements">Supplements</a>
@@ -1006,6 +856,9 @@ footer{
   <div class="benefit"><div class="benefit-icon">🎁</div><div><strong>SUPPLAB Rewards</strong><span>Earn while you shop</span></div></div>
 </section>
 
+<!-- =========================================================
+   POPULAR CAROUSEL
+========================================================= -->
 <section class="section" id="popular">
   <div class="section-header">
     <h2 class="section-title">🔥 Popular <span>Right Now</span></h2>
@@ -1017,6 +870,7 @@ footer{
   <div class="carousel-container">
     <div class="carousel-window">
       <div class="product-track" id="popularTrack">
+        
         <div class="product-card">
           <div class="product-image">
             <span class="product-badge">BESTSELLER</span>
@@ -1099,11 +953,15 @@ footer{
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
 
+<!-- =========================================================
+   SPORTS NUTRITION CAROUSEL
+========================================================= -->
 <section class="section green-section" id="sports">
   <div class="section-header">
     <h2 class="section-title">🏋️ Sports <span>Nutrition Essentials</span></h2>
@@ -1115,6 +973,7 @@ footer{
   <div class="carousel-container">
     <div class="carousel-window">
       <div class="product-track" id="sportsTrack">
+        
         <div class="product-card">
           <div class="product-image">
             <span class="product-badge">ENERGY</span>
@@ -1175,11 +1034,35 @@ footer{
             <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
           </div>
         </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">PURE</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Glutamine">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">MAXPERFORMANCE</div>
+            <div class="product-name">Pure L-Glutamine Recovery Powder 300g</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(78)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€21.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
+<!-- =========================================================
+   OFFERS SECTION
+========================================================= -->
 <section class="offers-section" id="offers">
   <div class="section-header">
     <h2 class="section-title">💥 Special <span>Offers & Deals</span></h2>
@@ -1206,6 +1089,9 @@ footer{
   </div>
 </section>
 
+<!-- =========================================================
+   CATEGORIES
+========================================================= -->
 <section class="section" id="supplements">
   <div class="section-header">
     <h2 class="section-title">Shop by <span>Category</span></h2>
