@@ -760,8 +760,76 @@ button{
   color:var(--black);
 }
 
-.offer-shop:hover{
-  opacity:.9;
+/* =========================================================
+   REWARDS
+========================================================= */
+
+.rewards{
+  margin:15px 4% 45px;
+  background:var(--blue);
+  color:#fff;
+  padding:40px 45px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:30px;
+  border-radius:5px;
+}
+
+.rewards h2{
+  font-size:32px;
+  margin-bottom:9px;
+}
+
+.rewards p{
+  line-height:1.5;
+  color:#e0f2fe;
+}
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.newsletter{
+  background:var(--blue-soft);
+  padding:55px 4%;
+  text-align:center;
+  border-top:1px solid #cce5ed;
+  border-bottom:1px solid #cce5ed;
+}
+
+.newsletter h2{
+  font-size:30px;
+  margin-bottom:10px;
+}
+
+.newsletter p{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.newsletter-form{
+  display:flex;
+  max-width:600px;
+  margin:auto;
+}
+
+.newsletter-form input{
+  flex:1;
+  height:48px;
+  border:1px solid #bbb;
+  padding:0 18px;
+  outline:none;
+  border-radius:3px 0 0 3px;
+}
+
+.newsletter-form button{
+  min-width:125px;
+  background:var(--black);
+  color:#fff;
+  border:0;
+  font-weight:900;
+  border-radius:0 3px 3px 0;
 }
 
 /* =========================================================
@@ -825,25 +893,93 @@ footer{
   color:#888;
   font-size:12px;
 }
+
+/* =========================================================
+   SEARCH RESULTS & TOAST
+========================================================= */
+
+.search-results{
+  display:none;
+  position:fixed;
+  z-index:500;
+  top:120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(850px,92%);
+  max-height:70vh;
+  overflow-y:auto;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:0 15px 50px rgba(0,0,0,.2);
+  border-radius:5px;
+}
+
+.search-results.active{
+  display:block;
+}
+
+.search-result-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:13px;
+  border-bottom:1px solid #eee;
+}
+
+.toast{
+  position:fixed;
+  z-index:1000;
+  bottom:25px;
+  right:25px;
+  background:var(--black);
+  color:#fff;
+  padding:14px 20px;
+  border-left:5px solid var(--cyan);
+  transform:translateY(100px);
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+  .header{ flex-wrap:wrap; }
+  .logo{ min-width:auto; }
+  .search-box{ order:3; flex-basis:100%; max-width:none; }
+  .category-grid{ grid-template-columns:repeat(3,1fr); }
+  .offers-grid{ grid-template-columns:1fr 1fr; }
+  .product-card{ flex:0 0 calc((100% - 16px) / 2); }
+}
+
+@media(max-width:700px){
+  .header-actions{ margin-left:auto; gap:8px; }
+  .header-action span:last-child{ display:none; }
+  .product-card{ flex:0 0 calc((100% - 16px) / 2); }
+  .category-grid{ grid-template-columns:repeat(2,1fr); }
+  .offers-grid{ grid-template-columns:1fr; }
+}
 </style>
 </head>
 
 <body>
 
-<!-- PROMO -->
 <div class="promo-bar">
   🚚 FREE SHIPPING ON ORDERS OVER €50
   &nbsp; | &nbsp;
   <span class="promo-highlight">EXTRA 10% OFF YOUR FIRST ORDER</span>
 </div>
 
-<!-- HEADER -->
 <header class="header">
-  <a href="#" class="logo">
-    SUP<span>PLAB</span><i class="logo-mark"></i>
-  </a>
+  <a href="#" class="logo">SUP<span>PLAB</span><i class="logo-mark"></i></a>
   <div class="search-box">
-    <input id="searchInput" type="search" placeholder="Search products, brands, vitamins, sports nutrition..." autocomplete="off">
+    <input id="searchInput" type="search" placeholder="Search products, brands, vitamins..." autocomplete="off">
     <button class="search-button" id="searchButton">🔍</button>
   </div>
   <div class="header-actions">
@@ -853,25 +989,24 @@ footer{
   </div>
 </header>
 
-<!-- NAVIGATION -->
+<div class="search-results" id="searchResults"></div>
+
 <nav class="navigation">
   <div class="nav-container">
     <a class="nav-link" href="#supplements">Supplements</a>
     <a class="nav-link" href="#sports">Sports Nutrition</a>
-    <a class="nav-link" href="#personal-care">Bath & Personal Care</a>
+    <a class="nav-link" href="#personal-care">Personal Care</a>
     <a class="nav-link" href="#beauty">Beauty</a>
     <a class="nav-link" href="#grocery">Grocery</a>
-    <a class="nav-link" href="#deals">Deals</a>
-    <a class="nav-link sale" href="#deals">SALE</a>
+    <a class="nav-link deals" href="#offers">Deals</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-content">
     <div class="hero-label">SUPPLAB WELLNESS MARKETPLACE</div>
     <h1>Better Health.<br>Better You.</h1>
-    <p>Discover supplements, sports nutrition, beauty, personal care and everyday wellness products from trusted brands.</p>
+    <p>Discover supplements, sports nutrition, beauty, personal care and everyday wellness products.</p>
     <div class="hero-buttons">
       <a href="#popular" class="btn-primary">SHOP NOW →</a>
       <a href="#offers" class="btn-secondary">VIEW DEALS</a>
@@ -879,58 +1014,95 @@ footer{
   </div>
 </section>
 
-<!-- BENEFITS -->
 <section class="benefits">
   <div class="benefit"><div class="benefit-icon">✓</div><div><strong>Trusted Brands</strong><span>Quality products</span></div></div>
-  <div class="benefit"><div class="benefit-icon">🚚</div><div><strong>Fast Delivery</strong><span>Delivered to your door</span></div></div>
+  <div class="benefit"><div class="benefit-icon">🚚</div><div><strong>Fast Delivery</strong><span>Delivered to door</span></div></div>
   <div class="benefit"><div class="benefit-icon">🔒</div><div><strong>Secure Shopping</strong><span>Safe checkout</span></div></div>
   <div class="benefit"><div class="benefit-icon">🎁</div><div><strong>SUPPLAB Rewards</strong><span>Earn while you shop</span></div></div>
 </section>
 
-<!-- POPULAR PRODUCTS CAROUSEL (LOADS 350 PRODUCTS FROM CSV) -->
 <section class="section" id="popular">
   <div class="section-header">
-    <h2 class="section-title">🔥 Popular <span>Right Now (350 Catalog Items)</span></h2>
+    <h2 class="section-title">🔥 Popular <span>Right Now</span></h2>
     <div class="carousel-controls">
-      <button class="carousel-control" onclick="moveCarousel(-1)">‹</button>
-      <button class="carousel-control" onclick="moveCarousel(1)">›</button>
+      <button class="carousel-control" onclick="moveCarousel('popularTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('popularTrack',1)">›</button>
     </div>
   </div>
   <div class="carousel-container">
     <div class="carousel-window">
-      <div class="product-track" id="popularTrack">
-        <div style="padding: 20px;">Loading your 350 catalog items...</div>
-      </div>
+      <div class="product-track" id="popularTrack"></div>
     </div>
   </div>
 </section>
 
-<!-- CATEGORY -->
-<section class="section green-section">
+<section class="offers-section" id="offers">
+  <div class="section-header">
+    <h2 class="section-title">💥 Special <span>Offers & Deals</span></h2>
+  </div>
+  <div class="offers-grid">
+    <article class="offer-card">
+      <span class="offer-label">🎁 WELCOME OFFER</span>
+      <h3>10% OFF First Order</h3>
+      <p>New to SUPPLAB? Save 10% on your first order.</p>
+      <div class="offer-code"><strong>WELCOME10</strong><button class="offer-copy">COPY</button></div>
+    </article>
+    <article class="offer-card flash">
+      <span class="offer-label">⚡ FLASH DEAL</span>
+      <h3>15% OFF Flash Deals</h3>
+      <p>Limited-time savings on selected products.</p>
+      <div class="offer-code"><strong>FLASH15</strong><button class="offer-copy">COPY</button></div>
+    </article>
+    <article class="offer-card rewards-offer">
+      <span class="offer-label">💎 REWARDS</span>
+      <h3>SUPPLAB Rewards</h3>
+      <p>Join rewards for member-only offers.</p>
+      <div class="offer-code"><strong>REWARDS5</strong><button class="offer-copy">COPY</button></div>
+    </article>
+  </div>
+</section>
+
+<section class="section green-section" id="supplements">
   <div class="section-header">
     <h2 class="section-title">Shop by <span>Category</span></h2>
   </div>
   <div class="category-grid">
-    <a href="#" class="category-card"><div class="category-icon">💊</div><h3>Vitamins & Supplements</h3></a>
+    <a href="#" class="category-card"><div class="category-icon">💊</div><h3>Vitamins</h3></a>
     <a href="#" class="category-card"><div class="category-icon">🏋️</div><h3>Sports Nutrition</h3></a>
     <a href="#" class="category-card"><div class="category-icon">✨</div><h3>Beauty</h3></a>
     <a href="#" class="category-card"><div class="category-icon">🧴</div><h3>Personal Care</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🥑</div><h3>Healthy Grocery</h3></a>
-    <a href="#" class="category-card"><div class="category-icon">🐶</div><h3>Pet Care</h3></a>
+    <a href="#" class="category-card"><div class="category-icon">🥑</div><h3>Grocery</h3></a>
+    <a href="#" class="category-card"><div class="category-icon">🐶</div><h3>Pets</h3></a>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="toast" id="toast">Item added to cart!</div>
+
 <footer>
   <div class="footer-grid">
     <div>
       <div class="footer-logo">SUP<span>PLAB</span></div>
-      <p class="footer-description">Your premier destination for verified sports nutrition, premium supplements, and wellness essentials.</p>
+      <p class="footer-description">Your premier destination for high-grade sports nutrition and wellness products.</p>
     </div>
     <div class="footer-column">
       <h3>Quick Links</h3>
-      <a href="#popular">Products</a>
-      <a href="#offers">Deals</a>
+      <a href="#">About Us</a>
+      <a href="#">Delivery Info</a>
+    </div>
+    <div class="footer-column">
+      <h3>Categories</h3>
+      <a href="#">Supplements</a>
+      <a href="#">Beauty</a>
+    </div>
+    <div class="footer-column">
+      <h3>Support</h3>
+      <a href="#">Contact Us</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-column">
+      <h3>Legal</h3>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -938,70 +1110,13 @@ footer{
   </div>
 </footer>
 
-<!-- SCRIPT TO LOAD CSV AND DISPLAY ALL 350 PRODUCTS -->
 <script>
-let currentSlide = 0;
-
-function moveCarousel(direction) {
-  const track = document.getElementById('popularTrack');
-  const cards = track.getElementsByClassName('product-card');
-  if (cards.length === 0) return;
-  
-  const maxSlide = Math.max(0, cards.length - 3);
-  currentSlide += direction;
-  
-  if (currentSlide < 0) currentSlide = 0;
-  if (currentSlide > maxSlide) currentSlide = maxSlide;
-  
-  const cardWidth = cards[0].offsetWidth + 16;
-  track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+function moveCarousel(trackId, direction) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  const cardWidth = track.querySelector('.product-card').offsetWidth + 16;
+  track.scrollBy({ left: direction * cardWidth * 3, behavior: 'smooth' });
 }
-
-async function loadCatalog() {
-  try {
-    const response = await fetch('shopify_bulk_import_ready.csv');
-    const text = await response.text();
-    const lines = text.split('\n');
-    const track = document.getElementById('popularTrack');
-    track.innerHTML = '';
-
-    // Loop through CSV rows (skipping header line 0)
-    for (let i = 1; i < lines.length; i++) {
-      const line = lines[i].trim();
-      if (!line) continue;
-
-      // Simple regex split for standard Shopify CSV exports
-      const cols = line.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || line.split(',');
-      if (cols.length < 2) continue;
-
-      const title = cols[0] ? cols[0].replace(/['"]+/g, '') : `Product ${i}`;
-      const price = cols[4] ? cols[4].replace(/['"]+/g, '') : '29.99';
-
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <div class="product-image">
-          <span class="product-badge">NEW</span>
-          <img src="https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=500&q=80" alt="${title}">
-        </div>
-        <div class="product-info">
-          <div class="product-brand">SUPPLAB</div>
-          <h3 class="product-name">${title}</h3>
-          <div class="price-row" style="margin-top: 10px;">
-            <span class="price">€${parseFloat(price || 24.99).toFixed(2)}</span>
-          </div>
-          <button class="add-cart" onclick="alert('Added ${title} to cart!')">ADD TO CART</button>
-        </div>
-      `;
-      track.appendChild(card);
-    }
-  } catch (err) {
-    console.error('Error loading CSV catalog:', err);
-    document.getElementById('popularTrack').innerHTML = '<p style="padding:20px; color:red;">Could not load product list.</p>';
-  }
-}
-
-loadCatalog();
 </script>
 
 </body>
