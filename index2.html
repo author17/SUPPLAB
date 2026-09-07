@@ -725,21 +725,6 @@ button{
   background:var(--blue-dark);
 }
 
-.offer-countdown{
-  display:flex;
-  gap:5px;
-  margin-bottom:15px;
-}
-
-.offer-countdown span{
-  background:var(--cyan);
-  color:var(--black);
-  padding:6px 8px;
-  border-radius:3px;
-  font-size:11px;
-  font-weight:900;
-}
-
 .offer-shop{
   width:100%;
   min-height:42px;
@@ -1031,7 +1016,166 @@ footer{
   </div>
   <div class="carousel-container">
     <div class="carousel-window">
-      <div class="product-track" id="popularTrack"></div>
+      <div class="product-track" id="popularTrack">
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">BESTSELLER</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Whey Protein">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">SUPPLAB NUTRITION</div>
+            <div class="product-name">Pure Whey Protein Isolate 1kg</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(124)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€39.99</span>
+              <span class="old-price">€49.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge red">SALE</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" alt="Multivitamin">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">VITAHEALTH</div>
+            <div class="product-name">Complete Daily Multivitamin 90 Caps</div>
+            <div class="rating-row">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(89)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€19.99</span>
+              <span class="old-price">€24.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">NEW</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1577401239170-897942555fb3?auto=format&fit=crop&w=600&q=80" alt="Omega 3">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">OCEAN PURE</div>
+            <div class="product-name">Ultra-Pure Omega-3 Fish Oil 120 Softgels</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(210)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€22.50</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">POPULAR</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Creatine">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">MAXPERFORMANCE</div>
+            <div class="product-name">Micronized Creatine Monohydrate 500g</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(340)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€26.99</span>
+              <span class="old-price">€32.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section green-section" id="sports">
+  <div class="section-header">
+    <h2 class="section-title">🏋️ Sports <span>Nutrition Essentials</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('sportsTrack',-1)">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('sportsTrack',1)">›</button>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="sportsTrack">
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">ENERGY</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1579722820308-d7ccfbe490d0?auto=format&fit=crop&w=600&q=80" alt="Pre-Workout">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">NITROGEN</div>
+            <div class="product-name">Extreme Pre-Workout Energy Blast 300g</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(95)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€34.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge red">SALE</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="BCAA">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">SUPPLAB NUTRITION</div>
+            <div class="product-name">BCAA 2:1:1 Recovery Powder 400g</div>
+            <div class="rating-row">
+              <span class="stars">★★★★☆</span>
+              <span class="review-count">(64)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€24.99</span>
+              <span class="old-price">€29.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <span class="product-badge">PRO</span>
+            <button class="product-heart">♡</button>
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" alt="Mass Gainer">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">MASSIVE</div>
+            <div class="product-name">Heavyweight Mass Gainer 2.5kg</div>
+            <div class="rating-row">
+              <span class="stars">★★★★★</span>
+              <span class="review-count">(42)</span>
+            </div>
+            <div class="price-row">
+              <span class="price">€49.99</span>
+            </div>
+            <button class="add-cart" onclick="addToCart()">ADD TO CART</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1062,7 +1206,7 @@ footer{
   </div>
 </section>
 
-<section class="section green-section" id="supplements">
+<section class="section" id="supplements">
   <div class="section-header">
     <h2 class="section-title">Shop by <span>Category</span></h2>
   </div>
@@ -1111,11 +1255,27 @@ footer{
 </footer>
 
 <script>
+let cartCountValue = 0;
+
 function moveCarousel(trackId, direction) {
   const track = document.getElementById(trackId);
   if (!track) return;
   const cardWidth = track.querySelector('.product-card').offsetWidth + 16;
   track.scrollBy({ left: direction * cardWidth * 3, behavior: 'smooth' });
+}
+
+function addToCart() {
+  cartCountValue++;
+  const counter = document.getElementById('cartCount');
+  if (counter) counter.innerText = cartCountValue;
+
+  const toast = document.getElementById('toast');
+  if (toast) {
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2500);
+  }
 }
 </script>
 
