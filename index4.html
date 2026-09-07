@@ -13,22 +13,30 @@
 *{ margin:0; padding:0; box-sizing:border-box; }
 
 :root{
-  /* Brand green -- sampled directly from the real SUPPLAB logo (#A8CB39) */
+  /* Brand green -- from the real SUPPLAB logo, kept for the logo only */
   --green:#A8CB39;
   --green-dark:#4F5F1B;
-  /* AA-contrast-safe darkened green, used for text/links and as a button
-     background (white text on top passes AA at 4.88:1) */
-  --blue:#647922;
-  --blue-dark:#4F5F1B;
-  --blue-soft:#E8ECDD;
 
-  /* Premium gold accent -- reserved for Rewards, brand badges, dividers */
-  --gold:#C9A227;
-  --gold-light:#F6ECC9;
-  --gold-text:#78611A;
-  --cyan:#C9A227;
+  /* Company-directed palette: Carbon Black / Clean White / Electric Lime /
+     Graphite / Ice Grey. Lime is reserved for signature moments only --
+     SHOP NOW / ADD TO CART / DEAL / NEW / active states -- per spec. */
+  --lime:#B6FF00;
+  --lime-dark:#8FCC00;
+  /* WCAG-AA-safe darkened lime, for the rare case lime is needed as text
+     rather than a filled background */
+  --lime-text:#5B7F00;
 
-  --black:#0A0A0A;
+  --blue:#5B7F00;
+  --blue-dark:#4A6600;
+  --blue-soft:#F3F5F4;
+
+  --gold:#B6FF00;
+  --gold-light:#EAFFC2;
+  --gold-text:#5B7F00;
+  --cyan:#B6FF00;
+
+  --graphite:#171A1C;
+  --black:#0B0D0E;
   --text:#1A1A1A;
   --muted:#6B6B66;
   --border:#E3E3DC;
@@ -82,7 +90,7 @@ ul{ list-style:none; }
 .promo-bar{
   position:relative;
   min-height:38px;
-  background:var(--blue);
+  background:var(--graphite);
   color:#fff;
   overflow:hidden;
 }
@@ -183,7 +191,7 @@ ul{ list-style:none; }
 .search-box{ flex:1; max-width:640px; position:relative; }
 .search-box input{ width:100%; height:46px; padding:0 52px 0 18px; border:2px solid var(--blue); border-radius:5px; outline:none; font-size:15px; }
 .search-box input:focus{ box-shadow:0 0 0 3px rgba(168,203,57,.22); }
-.search-button{ position:absolute; right:0; top:0; height:46px; width:50px; border:0; background:var(--blue); color:#fff; font-size:18px; border-radius:0 5px 5px 0; }
+.search-button{ position:absolute; right:0; top:0; height:46px; width:50px; border:0; background:var(--lime); color:var(--black); font-size:18px; border-radius:0 5px 5px 0; }
 
 .search-suggest{
   display:none;
@@ -288,7 +296,68 @@ ul{ list-style:none; }
 .section-subtitle{ color:var(--muted); font-size:13px; margin-top:4px; }
 
 /* ---- bento hero ---- */
-.bento-wrap{ padding:20px 4% 0; }
+/* ---- cinematic hero (company-directed redesign) ---- */
+.cinematic-hero{
+  position:relative;
+  background:radial-gradient(ellipse at 50% 30%, #171A1C 0%, #0B0D0E 65%);
+  color:#fff;
+  padding:110px 6% 100px;
+  overflow:hidden;
+  text-align:center;
+}
+.cinematic-hero::before{
+  content:"";
+  position:absolute;
+  top:45%;
+  left:50%;
+  width:900px;
+  height:900px;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(182,255,0,.16) 0%, rgba(182,255,0,0) 60%);
+  pointer-events:none;
+}
+.cinematic-hero-inner{ position:relative; max-width:820px; margin:0 auto; }
+.cinematic-kicker{
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:6px;
+  color:var(--lime);
+  margin-bottom:18px;
+}
+.cinematic-headline{
+  font-size:clamp(46px,8vw,104px);
+  line-height:.96;
+  font-weight:950;
+  letter-spacing:-2px;
+  margin-bottom:26px;
+  text-shadow:0 0 60px rgba(182,255,0,.25);
+}
+.cinematic-sub{
+  font-size:15px;
+  line-height:1.6;
+  color:#B9BEB8;
+  max-width:520px;
+  margin:0 auto 34px;
+}
+.cinematic-cta{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:54px;
+  padding:0 34px;
+  background:var(--lime);
+  color:var(--black);
+  border:0;
+  border-radius:3px;
+  font-weight:900;
+  font-size:14px;
+  letter-spacing:.5px;
+}
+.cinematic-cta:hover{ background:var(--lime-dark); }
+@media(max-width:700px){
+  .cinematic-hero{ padding:70px 6% 60px; }
+  .cinematic-headline{ letter-spacing:-1px; }
+}
 .bento-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -398,9 +467,9 @@ ul{ list-style:none; }
 .price{ color:var(--black); font-size:18px; font-weight:900; }
 .old-price{ color:#999; font-size:11px; text-decoration:line-through; }
 .discount-pill{ background:var(--gold-light); color:var(--gold-text); font-size:10px; font-weight:800; padding:2px 6px; border-radius:3px; }
-.add-cart{ width:100%; height:38px; margin-top:auto; padding-top:0; background:var(--blue); color:#fff; border:0; border-radius:3px; font-weight:800; font-size:12px; }
+.add-cart{ width:100%; height:38px; margin-top:auto; padding-top:0; background:var(--lime); color:var(--black); border:0; border-radius:3px; font-weight:800; font-size:12px; }
 .add-cart:disabled{ background:#cbd5e1; cursor:not-allowed; }
-.add-cart:not(:disabled):hover{ background:var(--blue-dark); }
+.add-cart:not(:disabled):hover{ background:var(--lime-dark); }
 .product-info .add-cart{ margin-top:11px; }
 
 /* ---- category / brand grids ---- */
@@ -430,7 +499,7 @@ ul{ list-style:none; }
 .price-range-row input[type="range"]{ width:180px; accent-color:var(--green); }
 .filter-clear{ font-size:12px; font-weight:800; color:var(--blue); background:none; border:0; text-decoration:underline; align-self:flex-start; }
 .filter-chip{ padding:9px 16px; border-radius:20px; border:1px solid var(--border); background:#fff; font-size:13px; font-weight:700; color:var(--text); }
-.filter-chip.active{ background:var(--blue); color:#fff; border-color:var(--blue); }
+.filter-chip.active{ background:var(--lime); color:var(--black); border-color:var(--lime); font-weight:800; }
 .results-meta{ color:var(--muted); font-size:13px; margin-bottom:16px; }
 .results-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .load-more-wrap{ display:flex; justify-content:center; margin-top:26px; }
@@ -438,7 +507,7 @@ ul{ list-style:none; }
 
 /* ---- newsletter ---- */
 .rewards-band{
-  background:linear-gradient(135deg,#0A0A0A,#1A1F0F);
+  background:linear-gradient(135deg,#0B0D0E,#171A1C);
   color:#fff;
   padding:50px 4%;
   display:flex;
@@ -460,7 +529,7 @@ ul{ list-style:none; }
   border:0;
   font-size:13px;
 }
-.rewards-cta:hover{ background:#DDB53A; }
+.rewards-cta:hover{ background:var(--lime-dark); }
 @media(max-width:700px){
   .rewards-band{ flex-direction:column; align-items:flex-start; text-align:left; }
 }
@@ -512,7 +581,7 @@ ul{ list-style:none; }
 .cart-item-remove{ background:none; border:0; color:var(--muted); font-size:11px; text-decoration:underline; }
 .cart-footer{ padding:18px 20px; border-top:1px solid var(--border); }
 .cart-subtotal{ display:flex; justify-content:space-between; font-weight:800; font-size:16px; margin-bottom:13px; }
-.cart-checkout{ width:100%; height:46px; background:var(--blue); color:#fff; border:0; border-radius:4px; font-weight:900; }
+.cart-checkout{ width:100%; height:46px; background:var(--lime); color:var(--black); border:0; border-radius:4px; font-weight:900; }
 .cart-empty{ padding:38px 20px; text-align:center; color:var(--muted); }
 
 /* ---- quick-view modal ---- */
@@ -684,26 +753,14 @@ ul{ list-style:none; }
 
 <main id="main-content">
 
-<div class="bento-wrap">
-  <div class="bento-grid" id="bentoGrid">
-    <div class="bento-tile bento-tile--hero">
-      <div class="bento-inner">
-        <h1>Better Health.<br>Better You.</h1>
-        <p id="bentoHeroCopy">359 real products across vitamins &amp; supplements, sports nutrition, and gear — sourced directly from our supplier catalogs.</p>
-        <button class="bento-cta" data-cat="all">SHOP ALL PRODUCTS →</button>
-      </div>
-    </div>
-    <button class="bento-tile bento-tile--deals" data-filter="deals">
-      <div><div class="bento-label">Deals</div><h3>Current price drops</h3><span class="bento-count" id="bentoDealsCount"></span></div>
-    </button>
-    <button class="bento-tile bento-tile--new" data-filter="new">
-      <div><div class="bento-label">New</div><h3>Just added</h3><span class="bento-count" id="bentoNewCount"></span></div>
-    </button>
-    <button class="bento-tile bento-tile--diffpharm" data-brand="Different Pharm">
-      <div><div class="bento-label">Brand</div><h3>Different Pharm</h3><span class="bento-count" id="bentoDPCount"></span></div>
-    </button>
+<section class="cinematic-hero">
+  <div class="cinematic-hero-inner">
+    <div class="cinematic-kicker">SUPPLAB</div>
+    <h1 class="cinematic-headline">FUEL WHAT'S<br>NEXT.</h1>
+    <p class="cinematic-sub">359 real products. No placeholders, no fabricated reviews — just an honest catalog from suppliers we actually work with.</p>
+    <button class="cinematic-cta" data-cat="all">SHOP SUPPLEMENTS →</button>
   </div>
-</div>
+</section>
 
 <section class="trust-strip" aria-label="Why shop with SUPPLAB">
   <div class="trust-item"><div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg></div><div><strong>Real Catalog Data</strong><span>No placeholder products</span></div></div>
@@ -912,8 +969,8 @@ const DEFAULT_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
 
 const CATEGORY_STYLE = {
   "Vitamins & Supplements": { color1:"#4F5F1B", color2:"#A8CB39" },
-  "Sports Nutrition":       { color1:"#0A0A0A", color2:"#2A2A26" },
-  "Accessories & Gear":     { color1:"#78611A", color2:"#C9A227" }
+  "Sports Nutrition":       { color1:"#0B0D0E", color2:"#2A2A26" },
+  "Accessories & Gear":     { color1:"#171A1C", color2:"#3A3F3A" }
 };
 function hashId(str){
   let h = 0;
@@ -1026,7 +1083,6 @@ function buildHomepage(){
   const deals = PRODUCTS.filter(p => p.discountPct > 0);
   renderTrack('dealsTrack', deals);
   document.getElementById('dealsSubtitle').textContent = deals.length ? `${deals.length} products currently discounted by Different Pharm` : "";
-  document.getElementById('bentoDealsCount').textContent = `${deals.length} products`;
 
   const vitamins = PRODUCTS.filter(p => p.category === "Vitamins & Supplements");
   renderTrack('vitaminsTrack', vitamins);
@@ -1040,12 +1096,10 @@ function buildHomepage(){
 
   const fresh = PRODUCTS.filter(p => p.label === "New");
   renderTrack('newTrack', fresh);
-  document.getElementById('bentoNewCount').textContent = `${fresh.length} products`;
 
   const diffPharm = PRODUCTS.filter(p => p.brand === "Different Pharm");
   renderTrack('diffPharmTrack', diffPharm);
   document.getElementById('diffPharmSubtitle').textContent = `${diffPharm.length} products`;
-  document.getElementById('bentoDPCount').textContent = `${diffPharm.length} products`;
 
   const lazar = PRODUCTS.filter(p => p.brand === "Lazar Angelov Nutrition");
   renderTrack('lazarTrack', lazar);
