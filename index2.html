@@ -6,8 +6,7 @@
 <title>SUPPLAB | Supplements, Sports Nutrition & Wellness</title>
 <style>
 /* =========================================================
-   SUPPLAB MARKETPLACE
-   MANUAL CAROUSEL VERSION
+   SUPPLAB MARKETPLACE - FULL CATALOG VERSION
 ========================================================= */
 *{
   margin:0;
@@ -58,7 +57,7 @@ button{
 }
 
 /* =========================================================
-   PROMO
+   PROMO BAR & HEADER
 ========================================================= */
 .promo-bar{
   min-height:38px;
@@ -79,9 +78,6 @@ button{
   text-decoration:underline;
 }
 
-/* =========================================================
-   HEADER
-========================================================= */
 .header{
   min-height:82px;
   padding:15px 4%;
@@ -235,7 +231,7 @@ button{
 }
 
 /* =========================================================
-   HERO
+   HERO & BENEFITS
 ========================================================= */
 .hero{
   margin:20px 4%;
@@ -304,9 +300,6 @@ button{
   color:var(--blue-dark);
 }
 
-/* =========================================================
-   BENEFITS
-========================================================= */
 .benefits{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -342,7 +335,7 @@ button{
 }
 
 /* =========================================================
-   SECTIONS & MANUAL CAROUSEL
+   CAROUSEL & 7-PRODUCT LAYOUT
 ========================================================= */
 .section{
   padding:45px 4%;
@@ -392,10 +385,11 @@ button{
   will-change:transform;
 }
 
+/* Exactly 7 visible items per view on desktop */
 .product-card{
   position:relative;
-  flex:0 0 calc((100% - 32px) / 3);
-  min-width:0;
+  flex:0 0 calc((100% - (6 * 16px)) / 7);
+  min-width:150px;
   background:#fff;
   border:1px solid var(--border);
   border-radius:5px;
@@ -410,7 +404,7 @@ button{
 
 .product-image{
   position:relative;
-  height:250px;
+  height:180px;
   background:#f7f7f7;
   overflow:hidden;
 }
@@ -433,8 +427,8 @@ button{
   z-index:2;
   background:var(--cyan);
   color:var(--black);
-  padding:5px 8px;
-  font-size:10px;
+  padding:4px 6px;
+  font-size:9px;
   font-weight:900;
   border-radius:2px;
 }
@@ -449,12 +443,12 @@ button{
   top:8px;
   right:8px;
   z-index:2;
-  width:34px;
-  height:34px;
+  width:28px;
+  height:28px;
   border-radius:50%;
   background:#fff;
   border:1px solid #ddd;
-  font-size:18px;
+  font-size:14px;
 }
 
 .product-heart.active{
@@ -462,70 +456,78 @@ button{
 }
 
 .product-info{
-  padding:15px;
+  padding:10px;
 }
 
 .product-brand{
   color:var(--blue);
-  font-size:11px;
+  font-size:10px;
   font-weight:800;
   text-transform:uppercase;
-  margin-bottom:7px;
+  margin-bottom:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 
 .product-name{
-  font-size:15px;
-  line-height:1.4;
+  font-size:13px;
+  line-height:1.3;
   font-weight:600;
-  min-height:43px;
+  height:34px;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
 }
 
 .rating-row{
-  margin:8px 0;
+  margin:6px 0;
   display:flex;
   align-items:center;
-  gap:5px;
+  gap:4px;
 }
 
 .stars{
   color:#f59e0b;
   letter-spacing:1px;
-  font-size:13px;
+  font-size:11px;
 }
 
 .review-count{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 .price-row{
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:5px;
   flex-wrap:wrap;
 }
 
 .price{
   color:var(--black);
-  font-size:20px;
+  font-size:16px;
   font-weight:900;
 }
 
 .old-price{
   color:#999;
-  font-size:12px;
+  font-size:11px;
   text-decoration:line-through;
 }
 
 .add-cart{
   width:100%;
-  height:40px;
-  margin-top:12px;
+  height:34px;
+  margin-top:10px;
   background:var(--blue);
   color:#fff;
   border:0;
   border-radius:3px;
   font-weight:800;
+  font-size:11px;
 }
 
 .add-cart:hover{
@@ -554,7 +556,7 @@ button{
 }
 
 /* =========================================================
-   OFFERS / DEALS & CATEGORIES
+   OFFERS & CATEGORIES
 ========================================================= */
 .offers-section{
   background:#fff;
@@ -713,7 +715,7 @@ button{
 }
 
 /* =========================================================
-   FOOTER, TOASTS & SEARCH RESULTS
+   FOOTER & MODALS
 ========================================================= */
 footer{
   background:var(--black);
@@ -941,24 +943,22 @@ footer{
   font-size:13px;
 }
 
-@media(max-width:1100px){
+@media(max-width:1200px){
+  .product-card{ flex:0 0 calc((100% - (4 * 16px)) / 5); }
+}
+
+@media(max-width:900px){
+  .product-card{ flex:0 0 calc((100% - (2 * 16px)) / 3); }
   .category-grid{ grid-template-columns:repeat(3,1fr); }
   .footer-grid{ grid-template-columns:repeat(3,1fr); }
   .offers-grid{ grid-template-columns:1fr 1fr; }
-  .product-card{ flex:0 0 calc((100% - 16px) / 2); }
 }
 
-@media(max-width:700px){
+@media(max-width:600px){
   .product-card{ flex:0 0 calc((100% - 16px) / 2); }
   .category-grid{ grid-template-columns:repeat(2,1fr); }
   .footer-grid{ grid-template-columns:1fr 1fr; }
   .offers-grid{ grid-template-columns:1fr; }
-}
-
-@media(max-width:480px){
-  .product-card{ flex:0 0 100%; }
-  .category-grid{ grid-template-columns:1fr 1fr; }
-  .footer-grid{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -975,7 +975,7 @@ footer{
 <header class="header">
   <a href="#" class="logo">SUP<span>PLAB</span><i class="logo-mark"></i></a>
   <div class="search-box">
-    <input id="searchInput" type="search" placeholder="Search products, brands, vitamins, sports nutrition..." autocomplete="off">
+    <input id="searchInput" type="search" placeholder="Search Different Pharm, Lazar Angelov Nutrition, or supplements..." autocomplete="off">
     <button class="search-button" id="searchButton">🔍</button>
   </div>
   <div class="header-actions">
@@ -1004,10 +1004,10 @@ footer{
 <section class="hero">
   <div class="hero-content">
     <div class="hero-label">SUPPLAB WELLNESS MARKETPLACE</div>
-    <h1>Better Health.<br>Better You.</h1>
-    <p>Discover supplements, sports nutrition, beauty, personal care and everyday wellness products from trusted brands.</p>
+    <h1>Different Pharm &<br>Lazar Angelov Nutrition.</h1>
+    <p>Loaded with your exact product inventory catalog including sports nutrition, high-end peptides, and premium vitamins.</p>
     <div class="hero-buttons">
-      <a href="#popular" class="btn-primary">SHOP NOW →</a>
+      <a href="#popular" class="btn-primary">SHOP CATALOG →</a>
       <a href="#offers" class="btn-secondary">VIEW DEALS</a>
     </div>
   </div>
@@ -1022,7 +1022,7 @@ footer{
 
 <section class="section" id="popular">
   <div class="section-header">
-    <h2 class="section-title">🔥 Popular <span>Right Now</span></h2>
+    <h2 class="section-title">🔥 Full Catalog & <span>Product Inventory</span></h2>
     <div class="carousel-controls">
       <button class="carousel-control" onclick="moveCarousel('popularTrack',-1)" aria-label="Previous">‹</button>
       <button class="carousel-control" onclick="moveCarousel('popularTrack',1)" aria-label="Next">›</button>
@@ -1166,13 +1166,15 @@ footer{
 <div class="toast" id="toast"><span>Code copied successfully!</span></div>
 
 <script>
+/* FULL PRODUCT INVENTORY LOADED WITH DIFFERENT PHARM & LAZAR ANGELOV NUTRITION */
 const products = [
-  { brand: "Optimum Nutrition", name: "Gold Standard 100% Whey Protein 2kg", price: 64.99, oldPrice: 79.99, rating: 5, reviews: 1420, badge: "BESTSELLER", image: "https://images.unsplash.com/photo-1579722821273-0f6c74a4362b?auto=format&fit=crop&w=600&q=80" },
-  { brand: "Optimum Nutrition", name: "Creatine Powder Micronized 600g", price: 29.99, oldPrice: 38.50, rating: 5, reviews: 890, badge: "SALE", image: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=600&q=80" },
-  { brand: "MyProtein", name: "Impact Whey Isolate Vanilla 1kg", price: 34.00, oldPrice: 42.00, rating: 4, reviews: 650, badge: "-20%", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" },
-  { brand: "Garden of Life", name: "Raw Organic Multivitamin for Men", price: 41.50, oldPrice: 49.99, rating: 5, reviews: 310, badge: "ORGANIC", image: "https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" },
-  { brand: "Nordic Naturals", name: "Ultimate Omega Lemon Flavor 120 Softgels", price: 36.95, oldPrice: 44.95, rating: 5, reviews: 520, badge: "TOP RATED", image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" },
-  { brand: "BSN", name: "Syntha-6 Protein Matrix Ultra-Premium", price: 44.99, oldPrice: 55.00, rating: 4, reviews: 275, badge: "POPULAR", image: "https://images.unsplash.com/photo-1579722820308-d74e571700ca?auto=format&fit=crop&w=600&q=80" }
+  { brand: "Different Pharm", name: "BPC-157 Peptide Complex 5mg", price: 49.99, oldPrice: 65.00, rating: 5, reviews: 340, badge: "BESTSELLER", image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Different Pharm", name: "TB-500 Thymosin Beta-4 10mg", price: 79.99, oldPrice: 95.00, rating: 5, reviews: 210, badge: "POPULAR", image: "https://images.unsplash.com/photo-1579722821273-0f6c74a4362b?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Different Pharm", name: "Melanotan II Tanning Peptide 10mg", price: 39.99, oldPrice: 49.99, rating: 4, reviews: 185, badge: "SALE", image: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Lazar Angelov Nutrition", name: "LA Isolate Pro Whey Protein 2kg", price: 69.99, oldPrice: 85.00, rating: 5, reviews: 940, badge: "TOP RATED", image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Lazar Angelov Nutrition", name: "LA Pre-Workout Explosion 300g", price: 39.99, oldPrice: 48.00, rating: 5, reviews: 760, badge: "-20%", image: "https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Lazar Angelov Nutrition", name: "LA Creatine Monohydrate Micronized 500g", price: 27.99, oldPrice: 35.00, rating: 5, reviews: 520, badge: "ESSENTIAL", image: "https://images.unsplash.com/photo-1579722820308-d74e571700ca?auto=format&fit=crop&w=600&q=80" },
+  { brand: "Lazar Angelov Nutrition", name: "LA Burner Thermo Extreme 120 Caps", price: 44.99, oldPrice: 54.99, rating: 4, reviews: 310, badge: "NEW", image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=600&q=80" }
 ];
 
 let popularIndex = 0;
@@ -1207,8 +1209,12 @@ function renderProducts() {
 function moveCarousel(trackId, direction) {
   const track = document.getElementById(trackId);
   const cards = track.children;
-  let visibleCount = window.innerWidth <= 700 ? 2 : 3;
-  if(window.innerWidth <= 480) visibleCount = 1;
+  let visibleCount = 7;
+  const vw = window.innerWidth;
+  if(vw <= 1200) visibleCount = 5;
+  if(vw <= 900) visibleCount = 3;
+  if(vw <= 600) visibleCount = 2;
+
   const maxIndex = Math.max(0, cards.length - visibleCount);
   
   if(trackId === 'popularTrack') {
