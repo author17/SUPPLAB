@@ -1,30 +1,1106 @@
-<a href="#" class="category-card">
-      <div class="category-icon">🐶</div>
-      <h3>Pet Care</h3>
-    </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUPPLAB | Supplements, Sports Nutrition & Wellness</title>
+<style>
+/* =========================================================
+   SUPPLAB MARKETPLACE
+   MANUAL CAROUSEL VERSION
+========================================================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
+:root{
+  --blue:#0d5c75;
+  --blue-dark:#083c4d;
+  --blue-light:#e6f4f8;
+  --blue-soft:#f0f9fc;
+  --cyan:#00d2d3;
+  --cyan-light:#e0fdfd;
+  --black:#0f172a;
+  --dark:#1e293b;
+  --text:#334155;
+  --muted:#64748b;
+  --white:#fff;
+  --gray:#f8fafc;
+  --border:#cbd5e1;
+  --red:#ef4444;
+  --shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#fff;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input{
+  font-family:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* =========================================================
+   PROMO
+========================================================= */
+.promo-bar{
+  min-height:38px;
+  background:var(--blue);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 20px;
+  font-size:13px;
+  font-weight:700;
+  text-align:center;
+}
+
+.promo-highlight{
+  color:var(--cyan);
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+.header{
+  min-height:82px;
+  padding:15px 4%;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  min-width:180px;
+  font-size:31px;
+  font-weight:950;
+  letter-spacing:-2px;
+  color:var(--blue);
+}
+
+.logo span{
+  color:var(--black);
+}
+
+.logo-mark{
+  display:inline-block;
+  width:11px;
+  height:11px;
+  margin-left:4px;
+  background:var(--cyan);
+  transform:rotate(45deg);
+}
+
+.search-box{
+  flex:1;
+  max-width:720px;
+  position:relative;
+}
+
+.search-box input{
+  width:100%;
+  height:48px;
+  padding:0 55px 0 20px;
+  border:2px solid var(--blue);
+  border-radius:5px;
+  outline:none;
+  font-size:15px;
+}
+
+.search-box input:focus{
+  box-shadow:0 0 0 3px rgba(13,92,117,.12);
+}
+
+.search-button{
+  position:absolute;
+  right:0;
+  top:0;
+  height:48px;
+  width:52px;
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  font-size:19px;
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.header-action{
+  position:relative;
+  min-width:55px;
+  text-align:center;
+  color:var(--black);
+  font-size:12px;
+  font-weight:600;
+}
+
+.header-action-icon{
+  display:block;
+  font-size:23px;
+  margin-bottom:3px;
+}
+
+.header-action:hover{
+  color:var(--blue);
+}
+
+.cart-count{
+  position:absolute;
+  top:-5px;
+  right:6px;
+  min-width:18px;
+  height:18px;
+  padding:0 4px;
+  border-radius:50%;
+  background:var(--cyan);
+  color:var(--black);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  font-weight:900;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+.navigation{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+}
+
+.nav-container{
+  display:flex;
+  align-items:center;
+  gap:25px;
+  min-height:50px;
+  padding:0 4%;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.nav-container::-webkit-scrollbar{
+  display:none;
+}
+
+.nav-link{
+  white-space:nowrap;
+  font-size:14px;
+  font-weight:700;
+  color:var(--black);
+}
+
+.nav-link:hover{
+  color:var(--blue);
+}
+
+.nav-link.deals{
+  color:var(--red);
+}
+
+.nav-link.sale{
+  background:var(--cyan);
+  color:var(--black);
+  padding:7px 12px;
+  border-radius:3px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+.hero{
+  margin:20px 4%;
+  min-height:430px;
+  border-radius:6px;
+  overflow:hidden;
+  background:linear-gradient(90deg, rgba(8,60,77,.97) 0%, rgba(13,92,117,.88) 45%, rgba(13,92,117,.25) 100%), url("https://images.unsplash.com/photo-1593095948071-474c5cc2989d?auto=format&fit=crop&w=1800&q=85") center/cover;
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{
+  max-width:620px;
+  padding:55px;
+  color:#fff;
+}
+
+.hero-label{
+  display:inline-block;
+  background:var(--cyan);
+  color:var(--black);
+  padding:8px 13px;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:clamp(40px,5vw,68px);
+  line-height:.98;
+  margin-bottom:20px;
+  letter-spacing:-2px;
+}
+
+.hero p{
+  max-width:530px;
+  font-size:18px;
+  line-height:1.55;
+  margin-bottom:30px;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.btn-primary,
+.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:46px;
+  padding:0 27px;
+  font-weight:900;
+  border-radius:3px;
+}
+
+.btn-primary{
+  background:var(--cyan);
+  color:var(--black);
+}
+
+.btn-secondary{
+  background:#fff;
+  color:var(--blue-dark);
+}
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+.benefits{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.benefit{
+  padding:18px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:center;
+  border-right:1px solid var(--border);
+}
+
+.benefit:last-child{
+  border-right:0;
+}
+
+.benefit-icon{
+  font-size:25px;
+}
+
+.benefit strong{
+  display:block;
+  font-size:13px;
+}
+
+.benefit span{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* =========================================================
+   SECTIONS & MANUAL CAROUSEL
+========================================================= */
+.section{
+  padding:45px 4%;
+}
+
+.green-section{
+  background:var(--blue-soft);
+}
+
+.section-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:22px;
+}
+
+.section-title{
+  font-size:28px;
+  color:var(--black);
+}
+
+.section-title span{
+  color:var(--blue);
+}
+
+.view-all{
+  color:var(--blue);
+  font-size:14px;
+  font-weight:800;
+}
+
+.carousel-container{
+  position:relative;
+}
+
+.carousel-window{
+  width:100%;
+  overflow:hidden;
+}
+
+.product-track{
+  display:flex;
+  gap:16px;
+  width:100%;
+  transition:transform .45s ease;
+  will-change:transform;
+}
+
+.product-card{
+  position:relative;
+  flex:0 0 calc((100% - 32px) / 3);
+  min-width:0;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:5px;
+  overflow:hidden;
+  transition:.2s ease;
+}
+
+.product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:var(--shadow);
+}
+
+.product-image{
+  position:relative;
+  height:250px;
+  background:#f7f7f7;
+  overflow:hidden;
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .35s;
+}
+
+.product-card:hover .product-image img{
+  transform:scale(1.04);
+}
+
+.product-badge{
+  position:absolute;
+  top:9px;
+  left:9px;
+  z-index:2;
+  background:var(--cyan);
+  color:var(--black);
+  padding:5px 8px;
+  font-size:10px;
+  font-weight:900;
+  border-radius:2px;
+}
+
+.product-badge.red{
+  background:var(--red);
+  color:#fff;
+}
+
+.product-heart{
+  position:absolute;
+  top:8px;
+  right:8px;
+  z-index:2;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:#fff;
+  border:1px solid #ddd;
+  font-size:18px;
+}
+
+.product-heart.active{
+  color:var(--red);
+}
+
+.product-info{
+  padding:15px;
+}
+
+.product-brand{
+  color:var(--blue);
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  margin-bottom:7px;
+}
+
+.product-name{
+  font-size:15px;
+  line-height:1.4;
+  font-weight:600;
+  min-height:43px;
+}
+
+.rating-row{
+  margin:8px 0;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.stars{
+  color:#f59e0b;
+  letter-spacing:1px;
+  font-size:13px;
+}
+
+.review-count{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.price-row{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.price{
+  color:var(--black);
+  font-size:20px;
+  font-weight:900;
+}
+
+.old-price{
+  color:#999;
+  font-size:12px;
+  text-decoration:line-through;
+}
+
+.add-cart{
+  width:100%;
+  height:40px;
+  margin-top:12px;
+  background:var(--blue);
+  color:#fff;
+  border:0;
+  border-radius:3px;
+  font-weight:800;
+}
+
+.add-cart:hover{
+  background:var(--blue-dark);
+}
+
+.carousel-controls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.carousel-control{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:#fff;
+  color:var(--black);
+  font-size:22px;
+  border-radius:3px;
+}
+
+.carousel-control:hover{
+  background:var(--blue);
+  color:#fff;
+}
+
+/* =========================================================
+   OFFERS / DEALS & CATEGORIES
+========================================================= */
+.offers-section{
+  background:#fff;
+  padding:45px 4%;
+}
+
+.offers-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.offer-card{
+  position:relative;
+  background:var(--blue-soft);
+  border:1px solid #cce5ed;
+  border-radius:6px;
+  padding:25px;
+  overflow:hidden;
+}
+
+.offer-card.flash{
+  background:var(--blue);
+  color:#fff;
+}
+
+.offer-card.rewards-offer{
+  background:var(--black);
+  color:#fff;
+}
+
+.offer-label{
+  display:inline-block;
+  padding:6px 10px;
+  background:var(--cyan);
+  color:var(--black);
+  border-radius:3px;
+  font-size:10px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.offer-card h3{
+  font-size:23px;
+  margin-bottom:8px;
+}
+
+.offer-card p{
+  font-size:13px;
+  line-height:1.5;
+  color:var(--muted);
+  margin-bottom:18px;
+}
+
+.offer-card.flash p,
+.offer-card.rewards-offer p{
+  color:#dbeafe;
+}
+
+.offer-code{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px;
+  background:#fff;
+  color:var(--black);
+  border:1px dashed var(--blue);
+  border-radius:4px;
+  margin-bottom:14px;
+}
+
+.offer-code strong{
+  letter-spacing:1px;
+  font-size:14px;
+}
+
+.offer-copy{
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  padding:8px 11px;
+  border-radius:3px;
+  font-size:10px;
+  font-weight:900;
+}
+
+.offer-copy:hover{
+  background:var(--blue-dark);
+}
+
+.offer-countdown{
+  display:flex;
+  gap:5px;
+  margin-bottom:15px;
+}
+
+.offer-countdown span{
+  background:var(--cyan);
+  color:var(--black);
+  padding:6px 8px;
+  border-radius:3px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.offer-shop{
+  width:100%;
+  min-height:42px;
+  border:0;
+  background:var(--black);
+  color:#fff;
+  border-radius:3px;
+  font-weight:900;
+}
+
+.offer-card.flash .offer-shop,
+.offer-card.rewards-offer .offer-shop{
+  background:var(--cyan);
+  color:var(--black);
+}
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:14px;
+}
+
+.category-card{
+  min-height:150px;
+  padding:18px;
+  background:var(--blue-soft);
+  border:1px solid #cce5ed;
+  border-radius:5px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  transition:.2s;
+}
+
+.category-card:hover{
+  background:var(--blue);
+  color:#fff;
+  transform:translateY(-3px);
+}
+
+.category-icon{
+  font-size:38px;
+  margin-bottom:12px;
+}
+
+.category-card h3{
+  font-size:14px;
+}
+
+/* =========================================================
+   FOOTER, TOASTS & SEARCH RESULTS
+========================================================= */
+footer{
+  background:var(--black);
+  color:#fff;
+  padding:55px 4% 25px;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.8fr repeat(4,1fr);
+  gap:35px;
+  margin-bottom:45px;
+}
+
+.footer-logo{
+  color:#fff;
+  font-size:28px;
+  font-weight:950;
+  letter-spacing:-1px;
+}
+
+.footer-logo span{
+  color:var(--cyan);
+}
+
+.footer-description{
+  color:#aaa;
+  line-height:1.6;
+  margin-top:15px;
+  max-width:300px;
+  font-size:13px;
+}
+
+.footer-column h3{
+  font-size:14px;
+  margin-bottom:17px;
+}
+
+.footer-column a{
+  display:block;
+  color:#aaa;
+  font-size:13px;
+  margin-bottom:11px;
+}
+
+.footer-column a:hover{
+  color:var(--cyan);
+}
+
+.footer-bottom{
+  border-top:1px solid #333;
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:#888;
+  font-size:12px;
+}
+
+.search-results{
+  display:none;
+  position:fixed;
+  z-index:500;
+  top:120px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(850px,92%);
+  max-height:70vh;
+  overflow-y:auto;
+  background:#fff;
+  border:1px solid var(--border);
+  box-shadow:0 15px 50px rgba(0,0,0,.2);
+  border-radius:5px;
+}
+
+.search-results.active{
+  display:block;
+}
+
+.search-result-item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding:13px;
+  border-bottom:1px solid #eee;
+}
+
+.search-result-item img{
+  width:55px;
+  height:55px;
+  object-fit:cover;
+}
+
+.search-result-item strong{
+  display:block;
+  margin-bottom:4px;
+}
+
+.search-result-item span{
+  color:var(--blue);
+  font-weight:800;
+}
+
+.toast{
+  position:fixed;
+  z-index:1000;
+  bottom:25px;
+  right:25px;
+  background:var(--black);
+  color:#fff;
+  padding:14px 20px;
+  border-left:5px solid var(--cyan);
+  transform:translateY(100px);
+  opacity:0;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+.promo-overlay{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:rgba(8,60,77,.72);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(4px);
+}
+
+.promo-overlay.active{
+  display:flex;
+}
+
+.promo-modal{
+  width:min(520px,100%);
+  background:#fff;
+  color:var(--text);
+  border-radius:8px;
+  padding:38px;
+  position:relative;
+  box-shadow:0 25px 80px rgba(0,0,0,.35);
+  text-align:center;
+}
+
+.promo-modal-close{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:36px;
+  height:36px;
+  border:0;
+  background:#f1f5f9;
+  color:var(--black);
+  border-radius:50%;
+  font-size:24px;
+  line-height:1;
+}
+
+.promo-modal-badge{
+  display:inline-block;
+  background:var(--cyan);
+  color:var(--black);
+  padding:7px 12px;
+  border-radius:3px;
+  font-size:11px;
+  font-weight:950;
+  margin-bottom:17px;
+}
+
+.promo-modal h2{
+  color:var(--black);
+  font-size:32px;
+  line-height:1.1;
+  margin-bottom:12px;
+}
+
+.promo-modal p{
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+  margin-bottom:22px;
+}
+
+.promo-modal-code{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  background:var(--blue-soft);
+  border:2px dashed var(--blue);
+  padding:12px;
+  border-radius:5px;
+  margin-bottom:18px;
+}
+
+.promo-modal-code strong{
+  color:var(--blue-dark);
+  font-size:18px;
+  letter-spacing:1.5px;
+}
+
+.copy-code-btn{
+  border:0;
+  background:var(--blue);
+  color:#fff;
+  padding:10px 13px;
+  border-radius:3px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.shop-offer-btn{
+  width:100%;
+  min-height:48px;
+  background:var(--cyan);
+  color:var(--black);
+  border:0;
+  border-radius:4px;
+  font-weight:950;
+  font-size:13px;
+}
+
+@media(max-width:1100px){
+  .category-grid{ grid-template-columns:repeat(3,1fr); }
+  .footer-grid{ grid-template-columns:repeat(3,1fr); }
+  .offers-grid{ grid-template-columns:1fr 1fr; }
+  .product-card{ flex:0 0 calc((100% - 16px) / 2); }
+}
+
+@media(max-width:700px){
+  .product-card{ flex:0 0 calc((100% - 16px) / 2); }
+  .category-grid{ grid-template-columns:repeat(2,1fr); }
+  .footer-grid{ grid-template-columns:1fr 1fr; }
+  .offers-grid{ grid-template-columns:1fr; }
+}
+
+@media(max-width:480px){
+  .product-card{ flex:0 0 100%; }
+  .category-grid{ grid-template-columns:1fr 1fr; }
+  .footer-grid{ grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="promo-bar">
+  🚚 FREE SHIPPING ON ORDERS OVER €50
+  &nbsp; | &nbsp;
+  <span class="promo-highlight" onclick="openPromo('welcomePopup')">
+    EXTRA 10% OFF YOUR FIRST ORDER
+  </span>
+</div>
+
+<header class="header">
+  <a href="#" class="logo">SUP<span>PLAB</span><i class="logo-mark"></i></a>
+  <div class="search-box">
+    <input id="searchInput" type="search" placeholder="Search products, brands, vitamins, sports nutrition..." autocomplete="off">
+    <button class="search-button" id="searchButton">🔍</button>
   </div>
+  <div class="header-actions">
+    <a href="#" class="header-action"><span class="header-action-icon">👤</span><span>Account</span></a>
+    <a href="#" class="header-action"><span class="header-action-icon">♡</span><span>Wishlist</span></a>
+    <a href="#" class="header-action"><span class="header-action-icon">🛒</span><span>Cart</span><span class="cart-count" id="cartCount">0</span></a>
+  </div>
+</header>
 
+<div class="search-results" id="searchResults"></div>
+
+<nav class="navigation">
+  <div class="nav-container">
+    <a class="nav-link" href="#supplements">Supplements</a>
+    <a class="nav-link" href="#sports">Sports Nutrition</a>
+    <a class="nav-link" href="#personal-care">Bath & Personal Care</a>
+    <a class="nav-link" href="#beauty">Beauty</a>
+    <a class="nav-link" href="#grocery">Grocery</a>
+    <a class="nav-link" href="#brands">Brands A-Z</a>
+    <a class="nav-link deals" href="#offers">Deals</a>
+    <a class="nav-link" href="#popular">Best Sellers</a>
+    <a class="nav-link sale" href="#offers">SALE</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-label">SUPPLAB WELLNESS MARKETPLACE</div>
+    <h1>Better Health.<br>Better You.</h1>
+    <p>Discover supplements, sports nutrition, beauty, personal care and everyday wellness products from trusted brands.</p>
+    <div class="hero-buttons">
+      <a href="#popular" class="btn-primary">SHOP NOW →</a>
+      <a href="#offers" class="btn-secondary">VIEW DEALS</a>
+    </div>
+  </div>
 </section>
 
+<section class="benefits">
+  <div class="benefit"><div class="benefit-icon">✓</div><div><strong>Trusted Brands</strong><span>Quality products</span></div></div>
+  <div class="benefit"><div class="benefit-icon">🚚</div><div><strong>Fast Delivery</strong><span>Delivered to your door</span></div></div>
+  <div class="benefit"><div class="benefit-icon">🔒</div><div><strong>Secure Shopping</strong><span>Safe checkout</span></div></div>
+  <div class="benefit"><div class="benefit-icon">🎁</div><div><strong>SUPPLAB Rewards</strong><span>Earn while you shop</span></div></div>
+</section>
 
-<!-- =========================================================
-     FOOTER
-========================================================= -->
+<section class="section" id="popular">
+  <div class="section-header">
+    <h2 class="section-title">🔥 Popular <span>Right Now</span></h2>
+    <div class="carousel-controls">
+      <button class="carousel-control" onclick="moveCarousel('popularTrack',-1)" aria-label="Previous">‹</button>
+      <button class="carousel-control" onclick="moveCarousel('popularTrack',1)" aria-label="Next">›</button>
+      <a href="#" class="view-all">View All →</a>
+    </div>
+  </div>
+  <div class="carousel-container">
+    <div class="carousel-window">
+      <div class="product-track" id="popularTrack"></div>
+    </div>
+  </div>
+</section>
+
+<section class="offers-section" id="offers">
+  <div class="section-header">
+    <h2 class="section-title">💥 Special <span>Offers & Deals</span></h2>
+    <a href="#offers" class="view-all">View All Deals →</a>
+  </div>
+  <div class="offers-grid">
+    <article class="offer-card">
+      <span class="offer-label">🎁 WELCOME OFFER</span>
+      <h3>10% OFF First Order</h3>
+      <p>New to SUPPLAB? Save 10% on your first eligible order.</p>
+      <div class="offer-code">
+        <strong>WELCOME10</strong>
+        <button class="offer-copy" onclick="copyPromoCode('WELCOME10')">📋 COPY CODE</button>
+      </div>
+      <button class="offer-shop" onclick="shopOffer('#popular','WELCOME10')">SHOP OFFER →</button>
+    </article>
+
+    <article class="offer-card flash">
+      <span class="offer-label">⚡ FLASH DEAL</span>
+      <h3>15% OFF Flash Deals</h3>
+      <p>Limited-time savings on selected SUPPLAB flash products.</p>
+      <div class="offer-code">
+        <strong>FLASH15</strong>
+        <button class="offer-copy" onclick="copyPromoCode('FLASH15')">📋 COPY CODE</button>
+      </div>
+      <div class="offer-countdown">
+        <span>08H</span><span>45M</span><span>22S</span>
+      </div>
+      <button class="offer-shop" onclick="openPromo('flashPopup')">SHOP OFFER →</button>
+    </article>
+
+    <article class="offer-card rewards-offer">
+      <span class="offer-label">💎 REWARDS</span>
+      <h3>SUPPLAB Rewards</h3>
+      <p>Join SUPPLAB Rewards and discover member-only offers and special rewards.</p>
+      <div class="offer-code">
+        <strong>REWARDS5</strong>
+        <button class="offer-copy" onclick="copyPromoCode('REWARDS5')">📋 COPY CODE</button>
+      </div>
+      <button class="offer-shop" onclick="shopOffer('#popular','REWARDS5')">JOIN & SHOP →</button>
+    </article>
+  </div>
+</section>
+
+<section class="section green-section" id="supplements">
+  <div class="section-header">
+    <h2 class="section-title">Shop by <span>Category</span></h2>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+  <div class="category-grid">
+    <a href="#" class="category-card"><div class="category-icon">💊</div><h3>Vitamins & Supplements</h3></a>
+    <a href="#" class="category-card" id="sports"><div class="category-icon">🏋️</div><h3>Sports Nutrition</h3></a>
+    <a href="#" class="category-card" id="beauty"><div class="category-icon">✨</div><h3>Beauty</h3></a>
+    <a href="#" class="category-card" id="personal-care"><div class="category-icon">🧴</div><h3>Personal Care</h3></a>
+    <a href="#" class="category-card" id="grocery"><div class="category-icon">🥑</div><h3>Healthy Grocery</h3></a>
+    <a href="#" class="category-card"><div class="category-icon">🐶</div><h3>Pet Care</h3></a>
+  </div>
+</section>
 
 <footer>
-
   <div class="footer-grid">
-
     <div class="footer-column">
-      <a href="#" class="footer-logo">
-        SUP<span>PLAB</span>
-      </a>
-      <p class="footer-description">
-        Your premier destination for sports nutrition, high-quality supplements, and everyday wellness essentials.
-      </p>
+      <a href="#" class="footer-logo">SUP<span>PLAB</span></a>
+      <p class="footer-description">Your premier destination for sports nutrition, high-quality supplements, and everyday wellness essentials.</p>
     </div>
-
     <div class="footer-column">
       <h3>Explore</h3>
       <a href="#supplements">Supplements</a>
@@ -32,7 +1108,6 @@
       <a href="#beauty">Beauty</a>
       <a href="#personal-care">Personal Care</a>
     </div>
-
     <div class="footer-column">
       <h3>Customer Service</h3>
       <a href="#">Help Center</a>
@@ -40,7 +1115,6 @@
       <a href="#">Returns & Refunds</a>
       <a href="#">Shipping Info</a>
     </div>
-
     <div class="footer-column">
       <h3>Company</h3>
       <a href="#">About Us</a>
@@ -48,27 +1122,18 @@
       <a href="#">Press</a>
       <a href="#">Sustainability</a>
     </div>
-
     <div class="footer-column">
       <h3>Legal</h3>
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
       <a href="#">Cookie Policy</a>
     </div>
-
   </div>
-
   <div class="footer-bottom">
     <p>&copy; 2026 SUPPLAB Marketplace. All rights reserved.</p>
     <p>Designed for optimal health and performance.</p>
   </div>
-
 </footer>
-
-
-<!-- =========================================================
-     MODALS & TOASTS
-========================================================= -->
 
 <div class="promo-overlay" id="welcomePopup">
   <div class="promo-modal">
@@ -76,47 +1141,31 @@
     <span class="promo-modal-badge">WELCOME GIFT</span>
     <h2>Get 10% Off Your First Order</h2>
     <p>Join the SUPPLAB community today and enjoy an immediate 10% discount across our entire catalog using the code below at checkout.</p>
-    
     <div class="promo-modal-code">
       <strong>WELCOME10</strong>
       <button class="copy-code-btn" onclick="copyPromoCode('WELCOME10')">📋 COPY CODE</button>
     </div>
-
-    <div class="promo-modal-actions">
-      <button class="shop-offer-btn" onclick="closePromo('welcomePopup'); location.href='#popular';">START SHOPPING</button>
-    </div>
+    <button class="shop-offer-btn" onclick="closePromo('welcomePopup'); location.href='#popular';">START SHOPPING</button>
   </div>
 </div>
 
 <div class="promo-overlay" id="flashPopup">
   <div class="promo-modal">
     <button class="promo-modal-close" onclick="closePromo('flashPopup')">&times;</button>
-    <span class="promo-modal-badge red" style="background:var(--red); color:#fff;">FLASH SALE</span>
+    <span class="promo-modal-badge" style="background:var(--red); color:#fff;">FLASH SALE</span>
     <h2>15% Off Flash Deals</h2>
     <p>Hurry! This flash discount applies to top-tier sports nutrition and select trending vitamins for a limited time.</p>
-    
     <div class="promo-modal-code">
       <strong>FLASH15</strong>
       <button class="copy-code-btn" onclick="copyPromoCode('FLASH15')">📋 COPY CODE</button>
     </div>
-
-    <div class="promo-modal-actions">
-      <button class="shop-offer-btn" onclick="closePromo('flashPopup'); location.href='#popular';">SHOP FLASH DEALS</button>
-    </div>
+    <button class="shop-offer-btn" onclick="closePromo('flashPopup'); location.href='#popular';">SHOP FLASH DEALS</button>
   </div>
 </div>
 
-<div class="toast" id="toast">
-  <span>Code copied to clipboard successfully!</span>
-</div>
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================= -->
+<div class="toast" id="toast"><span>Code copied successfully!</span></div>
 
 <script>
-/* Mock Product Data for Manual Carousel */
 const products = [
   { brand: "Optimum Nutrition", name: "Gold Standard 100% Whey Protein 2kg", price: 64.99, oldPrice: 79.99, rating: 5, reviews: 1420, badge: "BESTSELLER", image: "https://images.unsplash.com/photo-1579722821273-0f6c74a4362b?auto=format&fit=crop&w=600&q=80" },
   { brand: "Optimum Nutrition", name: "Creatine Powder Micronized 600g", price: 29.99, oldPrice: 38.50, rating: 5, reviews: 890, badge: "SALE", image: "https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&w=600&q=80" },
@@ -158,20 +1207,15 @@ function renderProducts() {
 function moveCarousel(trackId, direction) {
   const track = document.getElementById(trackId);
   const cards = track.children;
-  const totalCards = cards.length;
-  
-  // Determine items visible per view based on window width
   let visibleCount = window.innerWidth <= 700 ? 2 : 3;
   if(window.innerWidth <= 480) visibleCount = 1;
-
-  const maxIndex = Math.max(0, totalCards - visibleCount);
+  const maxIndex = Math.max(0, cards.length - visibleCount);
   
   if(trackId === 'popularTrack') {
     popularIndex += direction;
     if(popularIndex < 0) popularIndex = 0;
     if(popularIndex > maxIndex) popularIndex = maxIndex;
-
-    const cardWidth = cards[0].getBoundingClientRect().width + 16; // 16px gap
+    const cardWidth = cards[0].getBoundingClientRect().width + 16;
     track.style.transform = `translateX(-${popularIndex * cardWidth}px)`;
   }
 }
@@ -183,37 +1227,21 @@ function incrementCart() {
   showToast("Product added to cart successfully!");
 }
 
-function showToast(message) {
+function showToast(msg) {
   const toast = document.getElementById('toast');
-  toast.querySelector('span').textContent = message;
+  toast.querySelector('span').textContent = msg;
   toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 3000);
+  setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
 function copyPromoCode(code) {
-  navigator.clipboard.writeText(code).then(() => {
-    showToast(`Promo code ${code} copied to clipboard!`);
-  }).catch(() => {
-    showToast(`Failed to copy code.`);
-  });
+  navigator.clipboard.writeText(code).then(() => showToast(`Code ${code} copied!`));
 }
 
-function openPromo(popupId) {
-  document.getElementById(popupId).classList.add('active');
-}
+function openPromo(id) { document.getElementById(id).classList.add('active'); }
+function closePromo(id) { document.getElementById(id).classList.remove('active'); }
+function shopOffer(sec, code) { copyPromoCode(code); location.href = sec; }
 
-function closePromo(popupId) {
-  document.getElementById(popupId).classList.remove('active');
-}
-
-function shopOffer(targetSection, code) {
-  copyPromoCode(code);
-  location.href = targetSection;
-}
-
-/* Search autocomplete mock logic */
 const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 
@@ -221,20 +1249,14 @@ searchInput.addEventListener('input', (e) => {
   const query = e.target.value.toLowerCase().trim();
   if(query.length < 2) {
     searchResults.classList.remove('active');
-    searchResults.innerHTML = '';
     return;
   }
-
   const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query));
-  
   if(filtered.length > 0) {
     searchResults.innerHTML = filtered.map(p => `
       <div class="search-result-item" onclick="location.href='#popular'">
         <img src="${p.image}" alt="${p.name}">
-        <div>
-          <strong>${p.name}</strong>
-          <span>€${p.price.toFixed(2)}</span>
-        </div>
+        <div><strong>${p.name}</strong><span>€${p.price.toFixed(2)}</span></div>
       </div>
     `).join('');
     searchResults.classList.add('active');
@@ -250,13 +1272,8 @@ document.addEventListener('click', (e) => {
   }
 });
 
-// Initialize
-window.addEventListener('DOMContentLoaded', () => {
-  renderProducts();
-});
-
+window.addEventListener('DOMContentLoaded', renderProducts);
 window.addEventListener('resize', () => {
-  // Reset carousel transform on resize to avoid alignment glitches
   popularIndex = 0;
   const track = document.getElementById('popularTrack');
   if(track) track.style.transform = `translateX(0px)`;
