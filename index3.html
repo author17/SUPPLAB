@@ -60,18 +60,66 @@ ul{ list-style:none; }
   border:0;
 }
  
-/* ---- promo bar ---- */
+/* ---- rotating banner ---- */
 .promo-bar{
+  position:relative;
   min-height:38px;
   background:var(--blue);
   color:#fff;
+  overflow:hidden;
+}
+.promo-track{
+  display:flex;
+  height:38px;
+}
+.promo-slide{
+  flex:0 0 100%;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:8px 20px;
+  padding:8px 44px;
   font-size:13px;
   font-weight:700;
   text-align:center;
+  transition:transform .5s ease;
+}
+.promo-nav{
+  position:absolute;
+  top:0;
+  height:100%;
+  width:34px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:none;
+  border:0;
+  color:#fff;
+  font-size:16px;
+  opacity:.75;
+}
+.promo-nav:hover{ opacity:1; }
+.promo-nav.prev{ left:0; }
+.promo-nav.next{ right:0; }
+.promo-dots{
+  position:absolute;
+  right:44px;
+  top:0;
+  height:100%;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.promo-dot{
+  width:6px; height:6px;
+  border-radius:50%;
+  background:rgba(255,255,255,.4);
+  border:0;
+  padding:0;
+}
+.promo-dot.active{ background:#fff; }
+@media(max-width:700px){
+  .promo-slide{ padding:8px 30px; font-size:12px; }
+  .promo-dots{ display:none; }
 }
  
 /* ---- header ---- */
@@ -483,8 +531,11 @@ ul{ list-style:none; }
  
 <a class="skip-link" href="#main-content">Skip to main content</a>
  
-<div class="promo-bar">
-  🚚 Real catalog from Different Pharm, Lazar Angelov Nutrition &amp; our wholesale distributor — <span id="promoCatalogCount">359</span> products
+<div class="promo-bar" id="promoBar">
+  <button class="promo-nav prev" id="promoPrev" aria-label="Previous announcement">‹</button>
+  <div class="promo-track" id="promoTrack"></div>
+  <button class="promo-nav next" id="promoNext" aria-label="Next announcement">›</button>
+  <div class="promo-dots" id="promoDots"></div>
 </div>
  
 <header class="site-header">
@@ -791,7 +842,6 @@ ul{ list-style:none; }
 ========================================================= */
  
 const PRODUCTS = JSON.parse(document.getElementById('product-data').textContent);
-document.getElementById('promoCatalogCount').textContent = PRODUCTS.length;
 
 /* form facet: parsed from real pack/name text, used by the hamburger's
    category submenus below -- not fabricated, same logic as the main site */
@@ -810,6 +860,41 @@ function inferForm(p){
   return 'Other';
 }
 const FORM_OF = new Map(PRODUCTS.map(p => [p.id, inferForm(p)]));
+
+/* ---- rotating top banner: auto-advance, pause-on-hover, manual nav ---- */
+const PROMO_MESSAGES = [
+  () => `🚚 Real catalog from Different Pharm, Lazar Angelov Nutrition &amp; our wholesale distributor — ${PRODUCTS.length} products`,
+  () => `💥 ${PRODUCTS.filter(p=>p.discountPct>0).length} products currently on sale from Different Pharm`,
+  () => `⭐ ${PRODUCTS.filter(p=>p.brand==='Different Pharm').length} Different Pharm products in stock`,
+  () => `⭐ ${PRODUCTS.filter(p=>p.brand==='Lazar Angelov Nutrition').length} Lazar Angelov Nutrition products in stock`,
+  () => `✨ ${PRODUCTS.filter(p=>p.label==='New').length} new arrivals just added`
+];
+let promoIndex = 0;
+let promoTimer = null;
+
+function renderPromoBanner(){
+  const track = document.getElementById('promoTrack');
+  track.innerHTML = PROMO_MESSAGES.map(fn => `<div class="promo-slide">${fn()}</div>`).join('');
+  const dots = document.getElementById('promoDots');
+  dots.innerHTML = PROMO_MESSAGES.map((_,i) => `<button class="promo-dot ${i===0?'active':''}" onclick="goToPromoSlide(${i})" aria-label="Go to announcement ${i+1}"></button>`).join('');
+  updatePromoPosition();
+}
+function updatePromoPosition(){
+  document.getElementById('promoTrack').style.transform = `translateX(-${promoIndex*100}%)`;
+  document.querySelectorAll('.promo-dot').forEach((d,i) => d.classList.toggle('active', i===promoIndex));
+}
+function goToPromoSlide(i){ promoIndex = i; updatePromoPosition(); restartPromoTimer(); }
+function nextPromoSlide(){ promoIndex = (promoIndex+1) % PROMO_MESSAGES.length; updatePromoPosition(); }
+function prevPromoSlide(){ promoIndex = (promoIndex-1+PROMO_MESSAGES.length) % PROMO_MESSAGES.length; updatePromoPosition(); }
+function startPromoTimer(){ promoTimer = setInterval(nextPromoSlide, 5000); }
+function stopPromoTimer(){ clearInterval(promoTimer); }
+function restartPromoTimer(){ stopPromoTimer(); startPromoTimer(); }
+
+document.getElementById('promoNext').addEventListener('click', () => { nextPromoSlide(); restartPromoTimer(); });
+document.getElementById('promoPrev').addEventListener('click', () => { prevPromoSlide(); restartPromoTimer(); });
+document.getElementById('promoBar').addEventListener('mouseenter', stopPromoTimer);
+document.getElementById('promoBar').addEventListener('mouseleave', startPromoTimer);
+
  
 const CATEGORY_STYLE = {
   "Vitamins & Supplements": { color1:"#0d5c75", color2:"#12839f", icon:"💊" },
@@ -1409,6 +1494,8 @@ window.addEventListener("resize", () => {
  
 /* ---- init ---- */
 document.addEventListener("DOMContentLoaded", () => {
+  renderPromoBanner();
+  startPromoTimer();
   buildHomepage();
   buildHamburgerCategoryMenu();
   renderResults();
