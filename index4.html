@@ -285,6 +285,24 @@ ul{ list-style:none; }
 .hamburger-section h4{ font-size:11px; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
 .hamburger-section button, .hamburger-section a{ display:block; width:100%; text-align:left; background:none; border:0; padding:9px 0; font-size:14px; color:var(--text); font-weight:600; }
 .hamburger-section button:hover{ color:var(--blue); }
+.hamburger-cat-row{ display:flex; align-items:center; gap:6px; }
+.hamburger-cat-row .hamburger-cat-label{ flex:1; padding:9px 0; }
+.hamburger-cat-toggle{
+  width:30px; height:30px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:none; border:0; font-size:12px; color:var(--muted);
+  transition:transform .15s ease;
+}
+.hamburger-cat-toggle.open{ transform:rotate(180deg); }
+.hamburger-cat-sub{
+  display:none;
+  padding:2px 0 8px 14px;
+  border-left:2px solid var(--border);
+  margin-left:2px;
+}
+.hamburger-cat-sub.open{ display:block; }
+.hamburger-cat-sub h5{ font-size:10px; text-transform:uppercase; color:var(--muted); margin:8px 0 4px; }
+.hamburger-cat-sub button{ padding:6px 0; font-size:13px; font-weight:500; }
 @media(max-width:700px){
   .nav-bar .nav-item, .nav-bar > .nav-trigger{ display:none; }
 }
@@ -496,7 +514,7 @@ ul{ list-style:none; }
 .filter-group-label{ font-size:11px; font-weight:800; text-transform:uppercase; color:var(--muted); }
 .filter-chip-row{ display:flex; gap:10px; flex-wrap:wrap; }
 .price-range-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-.price-range-row input[type="range"]{ width:180px; accent-color:var(--green); }
+.price-range-row input[type="range"]{ width:180px; accent-color:var(--lime); }
 .filter-clear{ font-size:12px; font-weight:800; color:var(--blue); background:none; border:0; text-decoration:underline; align-self:flex-start; }
 .filter-chip{ padding:9px 16px; border-radius:20px; border:1px solid var(--border); background:#fff; font-size:13px; font-weight:700; color:var(--text); }
 .filter-chip.active{ background:var(--lime); color:var(--black); border-color:var(--lime); font-weight:800; }
@@ -585,6 +603,24 @@ ul{ list-style:none; }
 .cart-empty{ padding:38px 20px; text-align:center; color:var(--muted); }
 
 /* ---- quick-view modal ---- */
+.account-overlay{ position:fixed; inset:0; z-index:2600; background:rgba(10,10,10,.6); display:none; align-items:center; justify-content:center; padding:20px; }
+.account-overlay.active{ display:flex; }
+.account-modal{ width:min(400px,100%); background:#fff; border-radius:8px; position:relative; padding:32px 28px 28px; }
+.account-close{ position:absolute; top:10px; right:10px; width:34px; height:34px; border:0; background:#f1f5f9; border-radius:50%; font-size:20px; }
+.account-modal h2{ font-size:20px; margin-bottom:6px; }
+.account-modal .account-sub{ color:var(--muted); font-size:13px; margin-bottom:20px; }
+.account-field{ margin-bottom:14px; }
+.account-field label{ display:block; font-size:12px; font-weight:700; margin-bottom:6px; color:var(--text); }
+.account-field input{ width:100%; height:44px; padding:0 14px; border:1px solid var(--border); border-radius:4px; outline:none; font-size:14px; }
+.account-field input:focus{ border-color:var(--lime-dark); }
+.account-submit{ width:100%; height:46px; background:var(--lime); color:var(--black); border:0; border-radius:4px; font-weight:900; margin-top:6px; }
+.account-submit:hover{ background:var(--lime-dark); }
+.account-disclaimer{ font-size:11px; color:var(--muted); margin-top:14px; line-height:1.5; }
+.account-signed-in-row{ display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.account-avatar{ width:46px; height:46px; border-radius:50%; background:var(--lime); color:var(--black); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; flex-shrink:0; }
+.account-signout{ width:100%; height:44px; background:#fff; border:1px solid var(--border); border-radius:4px; font-weight:800; }
+.account-signout:hover{ border-color:var(--red); color:var(--red); }
+
 .qv-overlay{ position:fixed; inset:0; z-index:2500; background:rgba(10,10,10,.6); display:none; align-items:center; justify-content:center; padding:20px; }
 .qv-overlay.active{ display:flex; }
 .qv-modal{ width:min(760px,100%); max-height:88vh; overflow-y:auto; background:#fff; border-radius:8px; position:relative; display:grid; grid-template-columns:1fr 1fr; }
@@ -686,8 +722,8 @@ ul{ list-style:none; }
 
   <div class="header-actions">
     <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">☰</button>
-    <button class="header-action">
-      <span class="header-action-icon">👤</span><span>Account</span>
+    <button class="header-action" id="accountBtn">
+      <span class="header-action-icon">👤</span><span id="accountLabel">Account</span>
     </button>
     <button class="header-action" id="wishlistNavBtn">
       <span class="header-action-icon">♡</span><span>Wishlist</span>
@@ -733,9 +769,7 @@ ul{ list-style:none; }
     <div class="hamburger-header"><strong>Menu</strong><button class="hamburger-close" id="hamburgerClose" aria-label="Close menu">×</button></div>
     <div class="hamburger-section">
       <h4>Shop by category</h4>
-      <button data-cat="Vitamins &amp; Supplements">Vitamins &amp; Supplements</button>
-      <button data-cat="Sports Nutrition">Sports Nutrition</button>
-      <button data-cat="Accessories &amp; Gear">Accessories &amp; Gear</button>
+      <div id="hamburgerCategoryAccordion"></div>
       <button data-cat="all">All Products</button>
     </div>
     <div class="hamburger-section">
@@ -944,6 +978,10 @@ ul{ list-style:none; }
   <div class="qv-modal" id="qvModal"></div>
 </div>
 
+<div class="account-overlay" id="accountOverlay">
+  <div class="account-modal" id="accountModal"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script id="product-data" type="application/json">
@@ -1143,7 +1181,7 @@ const catalogPrices = PRODUCTS.map(p => p.price);
 const catalogMin = Math.floor(Math.min(...catalogPrices));
 const catalogMax = Math.ceil(Math.max(...catalogPrices));
 
-let filters = { category:null, brand:null, forms:new Set(), deals:false, isNew:false, minPrice:catalogMin, maxPrice:catalogMax };
+let filters = freshFilters();
 let visibleCount = 24;
 const PAGE_SIZE = 24;
 
@@ -1238,8 +1276,11 @@ function onPriceSlider(which, value){
   visibleCount = PAGE_SIZE;
   renderResults();
 }
+function freshFilters(){
+  return { category:null, brand:null, forms:new Set(), deals:false, isNew:false, minPrice:catalogMin, maxPrice:catalogMax };
+}
 function clearAllFilters(){
-  filters = { category:null, brand:null, forms:new Set(), deals:false, isNew:false, minPrice:catalogMin, maxPrice:catalogMax };
+  filters = freshFilters();
   visibleCount = PAGE_SIZE;
   renderFilterBar();
   renderResults();
@@ -1247,11 +1288,25 @@ function clearAllFilters(){
 
 /* filterAndScroll: quick single-facet jump used by mega-menu, hamburger, bento tiles, category/brand grids, footer links, nav "Deals"/"New" */
 function filterAndScroll(type, value){
-  filters = { category:null, brand:null, forms:new Set(), deals:false, isNew:false, minPrice:catalogMin, maxPrice:catalogMax };
+  filters = freshFilters();
   if(type === 'category') filters.category = value;
   else if(type === 'brand') filters.brand = value;
   else if(type === 'deals') filters.deals = true;
   else if(type === 'new') filters.isNew = true;
+  visibleCount = PAGE_SIZE;
+  closeAllMenus();
+  closeHamburger();
+  renderFilterBar();
+  renderResults();
+  document.getElementById('shopAll').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+/* drilldown: combined category+brand or category+form jump, used by the hamburger's category submenus */
+function drilldown(category, brand, form){
+  filters = freshFilters();
+  if(category) filters.category = category;
+  if(brand) filters.brand = brand;
+  if(form) filters.forms = new Set([form]);
   visibleCount = PAGE_SIZE;
   closeAllMenus();
   closeHamburger();
@@ -1405,6 +1460,114 @@ document.getElementById('wishlistNavBtn').addEventListener('click', () => {
   showToast(wishlist.size ? `${wishlist.size} item(s) wishlisted` : "Your wishlist is empty");
 });
 
+/* ---- account (client-side profile only -- no real backend, no password
+   storage; see chat notes to the merchant about what this is and isn't) ---- */
+let account = loadJSON('supplab_account', null);
+
+function updateAccountUI(){
+  document.getElementById('accountLabel').textContent = account ? account.name.split(' ')[0] : 'Account';
+}
+
+function openAccountModal(){
+  renderAccountModal();
+  document.getElementById('accountOverlay').classList.add('active');
+}
+function closeAccountModal(){ document.getElementById('accountOverlay').classList.remove('active'); }
+
+function renderAccountModal(){
+  const modal = document.getElementById('accountModal');
+  if(account){
+    const initial = account.name.trim()[0]?.toUpperCase() || '?';
+    modal.innerHTML = `
+      <button class="account-close" onclick="closeAccountModal()" aria-label="Close">×</button>
+      <h2>My Account</h2>
+      <div class="account-sub">Signed in locally on this device</div>
+      <div class="account-signed-in-row">
+        <div class="account-avatar">${initial}</div>
+        <div><strong>${account.name}</strong><div style="color:var(--muted);font-size:12px;">${account.email}</div></div>
+      </div>
+      <button class="account-signout" onclick="signOutAccount()">Sign out</button>
+      <div class="account-disclaimer">This profile is stored only in this browser, so it personalizes your visits here. It isn't a secure login system -- there's no password, and it won't sync across devices.</div>
+    `;
+  } else {
+    modal.innerHTML = `
+      <button class="account-close" onclick="closeAccountModal()" aria-label="Close">×</button>
+      <h2>Sign in or create an account</h2>
+      <div class="account-sub">Just your name and email, saved on this device</div>
+      <form id="accountForm">
+        <div class="account-field"><label for="accountName">Name</label><input id="accountName" type="text" required autocomplete="name"></div>
+        <div class="account-field"><label for="accountEmail">Email</label><input id="accountEmail" type="email" required autocomplete="email"></div>
+        <button type="submit" class="account-submit">Continue</button>
+      </form>
+      <div class="account-disclaimer">This is a lightweight local profile, not a secure account system -- there's no password and no server behind it. It just personalizes this browser. Real customer accounts would need a proper backend.</div>
+    `;
+    document.getElementById('accountForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('accountName').value.trim();
+      const email = document.getElementById('accountEmail').value.trim();
+      if(!name || !email) return;
+      account = { name, email };
+      saveJSON('supplab_account', account);
+      updateAccountUI();
+      renderAccountModal();
+      showToast(`Welcome, ${name.split(' ')[0]}!`);
+    });
+  }
+}
+function signOutAccount(){
+  account = null;
+  saveJSON('supplab_account', null);
+  updateAccountUI();
+  renderAccountModal();
+  showToast('Signed out');
+}
+document.getElementById('accountBtn').addEventListener('click', openAccountModal);
+document.getElementById('accountOverlay').addEventListener('click', (e) => { if(e.target.id === 'accountOverlay') closeAccountModal(); });
+
+/* ---- hamburger category submenus (real brand/form breakdown per category) ---- */
+function buildHamburgerCategoryMenu(){
+  const categories = ["Vitamins & Supplements","Sports Nutrition","Accessories & Gear"];
+  const container = document.getElementById('hamburgerCategoryAccordion');
+  container.innerHTML = categories.map((cat, i) => {
+    const inCat = PRODUCTS.filter(p => p.category === cat);
+    const brandCounts = {};
+    inCat.forEach(p => { const b = p.brand || "Other wholesale items"; brandCounts[b] = (brandCounts[b]||0)+1; });
+    const topBrands = Object.entries(brandCounts).sort((a,b) => b[1]-a[1]).slice(0,3);
+
+    const formCounts = {};
+    inCat.forEach(p => { const f = FORM_OF.get(p.id); if(f) formCounts[f] = (formCounts[f]||0)+1; });
+    const topForms = Object.entries(formCounts).sort((a,b) => b[1]-a[1]).slice(0,4);
+
+    const subId = `hamCatSub${i}`;
+    const brandLinks = topBrands.map(([b,c]) =>
+      `<button onclick="drilldown('${cat.replace(/'/g,"\\'")}','${b.replace(/'/g,"\\'")}',null)">${b} (${c})</button>`).join('');
+    const formLinks = topForms.map(([f,c]) =>
+      `<button onclick="drilldown('${cat.replace(/'/g,"\\'")}',null,'${f.replace(/'/g,"\\'")}')">${f} (${c})</button>`).join('');
+
+    return `
+      <div class="hamburger-cat-row">
+        <button class="hamburger-cat-label" data-cat="${cat}">${cat}</button>
+        <button class="hamburger-cat-toggle" onclick="toggleHamburgerCat('${subId}')" aria-label="Show ${cat} submenu">▾</button>
+      </div>
+      <div class="hamburger-cat-sub" id="${subId}">
+        ${topBrands.length ? `<h5>Brands</h5>${brandLinks}` : ''}
+        ${topForms.length ? `<h5>Form</h5>${formLinks}` : ''}
+        <button data-cat="${cat}">View all ${cat} →</button>
+      </div>
+    `;
+  }).join('');
+
+  // wire the plain category jump links generated above (label + "view all")
+  container.querySelectorAll('[data-cat]').forEach(el => {
+    el.addEventListener('click', () => filterAndScroll('category', el.getAttribute('data-cat')));
+  });
+}
+function toggleHamburgerCat(subId){
+  document.getElementById(subId).classList.toggle('open');
+  const toggle = document.querySelector(`[onclick="toggleHamburgerCat('${subId}')"]`);
+  if(toggle) toggle.classList.toggle('open');
+}
+
 /* ---- quick view modal + recently viewed ---- */
 function recordRecentlyViewed(productId){
   recentlyViewed = recentlyViewed.filter(id => id !== productId);
@@ -1458,7 +1621,7 @@ function openQuickView(productId){
 }
 function closeQuickView(){ document.getElementById('qvOverlay').classList.remove('active'); }
 document.getElementById('qvOverlay').addEventListener('click', (e) => { if(e.target.id === 'qvOverlay') closeQuickView(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeQuickView(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape'){ closeQuickView(); closeAccountModal(); } });
 
 /* ---- toast ---- */
 let toastTimer;
@@ -1547,8 +1710,10 @@ document.addEventListener("DOMContentLoaded", () => {
   startPromoTimer();
   renderFilterBar();
   buildHomepage();
+  buildHamburgerCategoryMenu();
   renderResults();
   updateCartUI();
+  updateAccountUI();
   document.getElementById('wishlistCount').textContent = wishlist.size;
 });
 </script>
