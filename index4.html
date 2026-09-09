@@ -104,7 +104,7 @@ ul{ list-style:none; }
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:8px 44px;
+  padding:8px 130px 8px 20px;
   font-size:13px;
   font-weight:700;
   text-align:center;
@@ -125,11 +125,11 @@ ul{ list-style:none; }
   opacity:.75;
 }
 .promo-nav:hover{ opacity:1; }
-.promo-nav.prev{ left:0; }
+.promo-nav.prev{ right:34px; }
 .promo-nav.next{ right:0; }
 .promo-dots{
   position:absolute;
-  right:44px;
+  right:78px;
   top:0;
   height:100%;
   display:flex;
@@ -145,7 +145,7 @@ ul{ list-style:none; }
 }
 .promo-dot.active{ background:#fff; }
 @media(max-width:700px){
-  .promo-slide{ padding:8px 30px; font-size:12px; }
+  .promo-slide{ padding:8px 76px 8px 14px; font-size:12px; }
   .promo-dots{ display:none; }
 }
 
@@ -454,8 +454,8 @@ ul{ list-style:none; }
   display:flex; align-items:center; justify-content:center;
 }
 .spotlight-nav:hover{ background:rgba(255,255,255,.16); }
-.spotlight-nav.prev{ left:-8px; }
-.spotlight-nav.next{ right:-8px; }
+.spotlight-nav.prev{ right:44px; }
+.spotlight-nav.next{ right:0; }
 
 @media(max-width:900px){
   .cinematic-hero-grid{ grid-template-columns:1fr; }
@@ -743,6 +743,7 @@ ul{ list-style:none; }
 .cart-item-remove{ background:none; border:0; color:var(--muted); font-size:11px; text-decoration:underline; }
 .cart-footer{ padding:18px 20px; border-top:1px solid var(--border); }
 .cart-subtotal{ display:flex; justify-content:space-between; font-weight:800; font-size:16px; margin-bottom:13px; }
+.cart-discount-row{ display:flex; justify-content:space-between; color:var(--gold-text); font-weight:700; font-size:13px; margin-bottom:8px; }
 .cart-checkout{ width:100%; height:46px; background:var(--lime); color:var(--black); border:0; border-radius:4px; font-weight:900; }
 .cart-empty{ padding:38px 20px; text-align:center; color:var(--muted); }
 
@@ -764,6 +765,27 @@ ul{ list-style:none; }
 .account-avatar{ width:46px; height:46px; border-radius:50%; background:var(--gold); color:var(--black); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:17px; flex-shrink:0; }
 .account-signout{ width:100%; height:44px; background:#fff; border:1px solid var(--border); border-radius:4px; font-weight:800; }
 .account-signout:hover{ border-color:var(--red); color:var(--red); }
+
+/* ---- welcome popup: register + real, working first-order discount ---- */
+.welcome-overlay{ position:fixed; inset:0; z-index:2700; background:rgba(10,10,10,.7); display:none; align-items:center; justify-content:center; padding:20px; }
+.welcome-overlay.active{ display:flex; }
+.welcome-modal{
+  position:relative;
+  width:min(420px,100%);
+  background:linear-gradient(160deg, var(--black), #171A1C);
+  color:#fff;
+  border-radius:10px;
+  padding:38px 30px 30px;
+  text-align:center;
+  box-shadow:0 0 0 1.5px var(--gold);
+}
+.welcome-kicker{ font-size:12px; font-weight:900; letter-spacing:4px; color:var(--lime); margin-bottom:14px; }
+.welcome-title{ font-size:24px; font-weight:900; line-height:1.2; margin-bottom:14px; }
+.welcome-sub{ font-size:13px; color:#B9BEB8; line-height:1.55; margin-bottom:24px; }
+.welcome-cta{ width:100%; height:50px; background:var(--lime); color:var(--black); border:0; border-radius:4px; font-weight:900; font-size:14px; margin-bottom:12px; }
+.welcome-cta:hover{ background:var(--lime-dark); }
+.welcome-dismiss{ width:100%; background:none; border:0; color:#8A8F89; font-size:12px; text-decoration:underline; }
+.welcome-modal .account-close{ background:rgba(255,255,255,.1); color:#fff; }
 
 .qv-overlay{ position:fixed; inset:0; z-index:2500; background:rgba(10,10,10,.6); display:none; align-items:center; justify-content:center; padding:20px; }
 .qv-overlay.active{ display:flex; }
@@ -1149,8 +1171,9 @@ ul{ list-style:none; }
     <div class="cart-header"><h2>Your Cart</h2><button class="cart-close" id="cartCloseBtn" aria-label="Close cart">×</button></div>
     <div class="cart-items" id="cartItemsList"></div>
     <div class="cart-footer">
+      <div class="cart-discount-row" id="cartDiscountRow" style="display:none;"></div>
       <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">€0.00</span></div>
-      <button class="cart-checkout">CHECKOUT</button>
+      <button class="cart-checkout" id="cartCheckoutBtn">CHECKOUT</button>
     </div>
   </div>
 </div>
@@ -1168,6 +1191,17 @@ ul{ list-style:none; }
 
 <div class="account-overlay" id="accountOverlay">
   <div class="account-modal" id="accountModal"></div>
+</div>
+
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-modal">
+    <button class="account-close" onclick="closeWelcomePopup()" aria-label="Close">×</button>
+    <div class="welcome-kicker">SUPPLAB</div>
+    <h2 class="welcome-title">Register &amp; get 25% off<br>your first order</h2>
+    <p class="welcome-sub">Create a free account and the discount applies automatically in your cart -- no code to remember.</p>
+    <button class="welcome-cta" onclick="closeWelcomePopup(); openAccountModal();">CREATE MY ACCOUNT →</button>
+    <button class="welcome-dismiss" onclick="closeWelcomePopup()">No thanks, maybe later</button>
+  </div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1726,12 +1760,40 @@ function updateCartUI(){
         </div>`;
     }).join("");
   }
-  const subtotal = ids.reduce((sum,id) => { const p = byId(id); return sum + (p ? p.price*cart[id] : 0); }, 0);
-  document.getElementById('cartSubtotal').textContent = moneyFmt(subtotal);
+  const rawSubtotal = ids.reduce((sum,id) => { const p = byId(id); return sum + (p ? p.price*cart[id] : 0); }, 0);
+  const discountActive = ids.length > 0 && account && account.firstOrderDiscountAvailable;
+  const discountAmount = discountActive ? rawSubtotal * (FIRST_ORDER_DISCOUNT_PCT/100) : 0;
+  const finalTotal = rawSubtotal - discountAmount;
+
+  const discountRow = document.getElementById('cartDiscountRow');
+  if(discountActive){
+    discountRow.style.display = 'flex';
+    discountRow.innerHTML = `<span>First order discount (${FIRST_ORDER_DISCOUNT_PCT}%)</span><span>-${moneyFmt(discountAmount)}</span>`;
+  } else {
+    discountRow.style.display = 'none';
+  }
+  document.getElementById('cartSubtotal').textContent = moneyFmt(finalTotal);
 }
 document.getElementById('cartOpenBtn').addEventListener('click', () => document.getElementById('cartOverlay').classList.add('active'));
 document.getElementById('cartCloseBtn').addEventListener('click', () => document.getElementById('cartOverlay').classList.remove('active'));
 document.getElementById('cartOverlay').addEventListener('click', (e) => { if(e.target.id === 'cartOverlay') document.getElementById('cartOverlay').classList.remove('active'); });
+document.getElementById('cartCheckoutBtn').addEventListener('click', completeCheckout);
+function completeCheckout(){
+  const ids = Object.keys(cart);
+  if(!ids.length) return;
+  const usedDiscount = account && account.firstOrderDiscountAvailable;
+  if(usedDiscount){
+    account.firstOrderDiscountAvailable = false;
+    saveJSON('supplab_account', account);
+  }
+  cart = {};
+  persistCart();
+  updateCartUI();
+  document.getElementById('cartOverlay').classList.remove('active');
+  showToast(usedDiscount
+    ? "Order placed with your 25% first-order discount! (Demo checkout -- no real payment is processed yet.)"
+    : "Order placed! (Demo checkout -- no real payment is processed yet.)");
+}
 
 /* ---- wishlist ---- */
 function persistWishlist(){ saveJSON('supplab_wishlist', Array.from(wishlist)); }
@@ -1798,10 +1860,24 @@ document.getElementById('wishlistOverlay').addEventListener('click', (e) => { if
 /* ---- account (client-side profile only -- no real backend, no password
    storage; see chat notes to the merchant about what this is and isn't) ---- */
 let account = loadJSON('supplab_account', null);
+const FIRST_ORDER_DISCOUNT_PCT = 25;
 
 function updateAccountUI(){
   document.getElementById('accountLabel').textContent = account ? account.name.split(' ')[0] : 'Account';
 }
+
+/* ---- welcome popup: shown once per browser, only for visitors without
+   an account yet -- registering or dismissing both mark it as seen ---- */
+function maybeShowWelcomePopup(){
+  const alreadySeen = loadJSON('supplab_seen_welcome', false);
+  if(alreadySeen || account) return;
+  document.getElementById('welcomeOverlay').classList.add('active');
+}
+function closeWelcomePopup(){
+  document.getElementById('welcomeOverlay').classList.remove('active');
+  saveJSON('supplab_seen_welcome', true);
+}
+document.getElementById('welcomeOverlay').addEventListener('click', (e) => { if(e.target.id === 'welcomeOverlay') closeWelcomePopup(); });
 
 function openAccountModal(){
   renderAccountModal();
@@ -1841,11 +1917,13 @@ function renderAccountModal(){
       const name = document.getElementById('accountName').value.trim();
       const email = document.getElementById('accountEmail').value.trim();
       if(!name || !email) return;
-      account = { name, email };
+      account = { name, email, firstOrderDiscountAvailable: true };
       saveJSON('supplab_account', account);
       updateAccountUI();
       renderAccountModal();
-      showToast(`Welcome, ${name.split(' ')[0]}!`);
+      updateCartUI();
+      showToast(`Welcome, ${name.split(' ')[0]}! Your 25% first-order discount is ready in your cart.`);
+      closeWelcomePopup();
     });
   }
 }
@@ -1960,7 +2038,7 @@ function openQuickView(productId){
 }
 function closeQuickView(){ document.getElementById('qvOverlay').classList.remove('active'); }
 document.getElementById('qvOverlay').addEventListener('click', (e) => { if(e.target.id === 'qvOverlay') closeQuickView(); });
-document.addEventListener('keydown', (e) => { if(e.key === 'Escape'){ closeQuickView(); closeAccountModal(); closeWishlistDrawer(); } });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape'){ closeQuickView(); closeAccountModal(); closeWishlistDrawer(); closeWelcomePopup(); } });
 
 /* ---- toast ---- */
 let toastTimer;
@@ -2062,6 +2140,7 @@ document.addEventListener("DOMContentLoaded", () => {
   updateWishlistUI();
   updateAccountUI();
   document.getElementById('wishlistCount').textContent = wishlist.size;
+  setTimeout(maybeShowWelcomePopup, 1200);
 });
 </script>
 
