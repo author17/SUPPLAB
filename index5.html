@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Tells the browser this page's colors are already deliberately chosen for
+     a light theme, so Android/Samsung Internet's automatic "force dark" /
+     adaptive-color reprocessing leaves them alone instead of dulling bright
+     colors like our signature lime green to save eye strain. -->
+<meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#0B0D0E">
 <title>SUPPLAB | Supplements, Sports Nutrition & Wellness</title>
 
 <style>
@@ -11,6 +17,8 @@
 ========================================================= */
 
 *{ margin:0; padding:0; box-sizing:border-box; }
+
+html{ color-scheme:light only; }
 
 :root{
   /* Brand green -- from the real SUPPLAB logo, kept for the logo only */
