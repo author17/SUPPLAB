@@ -2318,24 +2318,30 @@ function updateDealHeroPosition(instant){
 function goToDealHeroSlide(i){ dealHeroIndex = i+1; updateDealHeroPosition(); restartDealHeroTimer(); }
 function nextDealHeroSlide(){
   dealHeroIndex++;
+  /* safety clamp: never let the index wander past the clone range, no matter
+     what triggered this tick -- keeps a stray extra timer from ever landing
+     on a non-existent slide and showing a blank frame */
+  if(dealHeroIndex > dealHeroRealCount+1) dealHeroIndex = ((dealHeroIndex-1)%dealHeroRealCount)+1;
   updateDealHeroPosition();
 }
 function prevDealHeroSlide(){
   dealHeroIndex--;
+  if(dealHeroIndex < 0) dealHeroIndex = dealHeroRealCount;
   updateDealHeroPosition();
 }
-document.getElementById('dealHeroTrack').addEventListener('transitionend', () => {
+document.getElementById('dealHeroTrack').addEventListener('transitionend', (e) => {
+  if(e.target !== e.currentTarget || e.propertyName !== 'transform') return;
   if(dealHeroIndex === dealHeroRealCount+1){ dealHeroIndex = 1; updateDealHeroPosition(true); }
   else if(dealHeroIndex === 0){ dealHeroIndex = dealHeroRealCount; updateDealHeroPosition(true); }
 });
-function startDealHeroTimer(){ dealHeroTimer = setInterval(nextDealHeroSlide, 5000); }
-function stopDealHeroTimer(){ clearInterval(dealHeroTimer); }
+function startDealHeroTimer(){ stopDealHeroTimer(); dealHeroTimer = setInterval(nextDealHeroSlide, 5000); }
+function stopDealHeroTimer(){ clearInterval(dealHeroTimer); dealHeroTimer = null; }
 function restartDealHeroTimer(){ stopDealHeroTimer(); startDealHeroTimer(); }
 
 document.getElementById('dealHeroNext').addEventListener('click', () => { nextDealHeroSlide(); restartDealHeroTimer(); });
 document.getElementById('dealHeroPrev').addEventListener('click', () => { prevDealHeroSlide(); restartDealHeroTimer(); });
 document.getElementById('dealHero').addEventListener('mouseenter', stopDealHeroTimer);
-document.getElementById('dealHero').addEventListener('mouseleave', startDealHeroTimer);
+document.getElementById('dealHero').addEventListener('mouseleave', restartDealHeroTimer);
 
 
 /* ---- mega-menu + nav wiring ---- */
