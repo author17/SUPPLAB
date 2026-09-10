@@ -334,6 +334,16 @@ ul{ list-style:none; }
   overflow:hidden;
   box-shadow:inset 0 -2px 0 rgba(11,13,14,.35), 0 2px 16px -6px rgba(182,255,0,.6);
 }
+@media(max-width:700px){
+  /* the desktop gradient above uses %-based stops, which on a short/narrow
+     mobile bar collapse to almost one flat shade of green -- mobile gets
+     its own fixed-pixel repeating pattern so the brushed-metal striping is
+     still visible there, without changing anything on desktop */
+  .promo-bar{
+    background:repeating-linear-gradient(100deg,
+      #7AB300 0px, #B6FF00 18px, #C6FF33 36px, #8FCC00 54px, #7AB300 72px);
+  }
+}
 /* ---- continuous rolling marquee: messages flow in one unbroken
    right-to-left stream (not discrete slides with a pause) -- two
    identical copies of the message sequence sit back to back and the
