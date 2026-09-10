@@ -329,7 +329,12 @@ ul{ list-style:none; }
 .promo-bar{
   position:relative;
   min-height:38px;
-  background:linear-gradient(150deg, #8FCC00 0%, #B6FF00 25%, #7AB300 45%, #C6FF33 60%, #8FCC00 80%, #B6FF00 100%);
+  /* kept deliberately inside a tight, bright lime band (never dipping into
+     the darker/more desaturated olive tone #7AB300 used before) -- on some
+     phone displays (reported on Samsung devices) that darker stop was
+     rendering as a muted "forest green" instead of the intended neon lime,
+     so every stop here stays bright and clearly lime-family */
+  background:linear-gradient(150deg, #9FDB00 0%, #C6FF33 25%, #B6FF00 45%, #D9FF66 60%, #9FDB00 80%, #C6FF33 100%);
   color:#0B0D0E;
   overflow:hidden;
   box-shadow:inset 0 -2px 0 rgba(11,13,14,.35), 0 2px 16px -6px rgba(182,255,0,.6);
@@ -344,7 +349,7 @@ ul{ list-style:none; }
      stays visible, without changing true desktop widths at all */
   .promo-bar{
     background:repeating-linear-gradient(100deg,
-      #7AB300 0px, #B6FF00 18px, #C6FF33 36px, #8FCC00 54px, #7AB300 72px);
+      #9FDB00 0px, #B6FF00 18px, #D9FF66 36px, #C6FF33 54px, #9FDB00 72px);
   }
 }
 /* ---- continuous rolling marquee: messages flow in one unbroken
