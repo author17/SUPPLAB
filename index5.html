@@ -136,8 +136,8 @@ html{ color-scheme:light only; }
 .promo-banner-price-chip em{ color:var(--lime); font-style:normal; }
 
 /* bottom-of-page app band (moved down from the hero, Myprotein-style) */
-.bottom-app-band{ margin:40px auto; max-width:1280px; padding:0 20px; }
-.bottom-app-inner{ border-radius:10px; overflow:hidden; }
+.bottom-app-band{ margin:40px 0 0; width:100%; }
+.bottom-app-inner{ overflow:hidden; }
 .bottom-app-slide{ line-height:0; }
 .bottom-app-image-link{ display:block; }
 .bottom-app-image{ width:100%; height:auto; display:block; }
@@ -2166,7 +2166,7 @@ function prevDealHeroSlide(){
   dealHeroIndex = (dealHeroIndex-1+count) % count;
   updateDealHeroPosition();
 }
-function startDealHeroTimer(){ dealHeroTimer = setInterval(nextDealHeroSlide, 3000); }
+function startDealHeroTimer(){ dealHeroTimer = setInterval(nextDealHeroSlide, 5000); }
 function stopDealHeroTimer(){ clearInterval(dealHeroTimer); }
 function restartDealHeroTimer(){ stopDealHeroTimer(); startDealHeroTimer(); }
 
