@@ -2,9 +2,9 @@
   "name": "SUPPLAB | Supplements, Sports Nutrition & Wellness",
   "short_name": "SUPPLAB",
   "description": "Shop real supplement, sports nutrition and wellness products from Different Pharm, Lazar Angelov Nutrition and more.",
-  "start_url": "./",
-  "scope": "./",
-  "id": "./",
+  "start_url": "/index7.html",
+  "scope": "/index7.html",
+  "id": "/index7.html",
   "display": "standalone",
   "orientation": "portrait-primary",
   "theme_color": "#0B0D0E",
@@ -20,14 +20,14 @@
       "name": "Current Deals",
       "short_name": "Deals",
       "description": "Jump straight to today's deals",
-      "url": "./#deals",
+      "url": "/index7.html#deals",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Search Products",
       "short_name": "Search",
       "description": "Open search",
-      "url": "./#search",
+      "url": "/index7.html#search",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
