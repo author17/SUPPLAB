@@ -9,6 +9,12 @@
      colors like our signature lime green to save eye strain. -->
 <meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#0B0D0E">
+<!-- PWA: makes SUPPLAB installable to a home screen / app drawer -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SUPPLAB">
 <title>SUPPLAB | Supplements, Sports Nutrition & Wellness</title>
 
 <style>
@@ -2928,6 +2934,75 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('wishlistCount').textContent = wishlist.size;
   setTimeout(maybeShowWelcomePopup, 1200);
 });
+</script>
+
+<!-- PWA: install button (Android/Desktop shows a real install prompt; iOS
+     shows a link to manual Add-to-Home-Screen instructions, since Safari
+     doesn't support automatic install prompts) -->
+<button id="pwaInstallBtn" type="button" aria-label="Install SUPPLAB app" style="display:none;position:fixed;right:18px;bottom:18px;z-index:9999;background:var(--lime,#D4FF00);color:var(--black,#0B0D0E);border:none;border-radius:999px;padding:12px 20px;font-weight:900;font-size:14px;letter-spacing:.02em;font-family:Arial,Helvetica,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.35);cursor:pointer;">📲 Install SUPPLAB App</button>
+
+<script>
+(function(){
+  var installBtn = document.getElementById('pwaInstallBtn');
+  var deferredPrompt = null;
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  var isIOS = /iphone|ipad|ipod/i.test(window.navigator.userAgent) && !window.MSStream;
+
+  // Register the service worker (safe no-op if unsupported or served from file://)
+  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('sw.js').catch(function(err){
+        console.warn('SUPPLAB service worker registration failed:', err);
+      });
+    });
+  }
+
+  if (installBtn && !isStandalone) {
+    if (isIOS) {
+      installBtn.style.display = 'block';
+      installBtn.textContent = '📲 Add to Home Screen';
+      installBtn.addEventListener('click', function(){
+        window.location.href = 'ios-install.html';
+      });
+    } else {
+      window.addEventListener('beforeinstallprompt', function(e){
+        e.preventDefault();
+        deferredPrompt = e;
+        installBtn.style.display = 'block';
+      });
+      installBtn.addEventListener('click', function(){
+        if (!deferredPrompt) return;
+        installBtn.style.display = 'none';
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.finally(function(){ deferredPrompt = null; });
+      });
+      window.addEventListener('appinstalled', function(){
+        installBtn.style.display = 'none';
+      });
+    }
+  }
+
+  // Support the manifest's "Current Deals" / "Search" shortcuts (and any
+  // plain #deals / #search link) by acting on the hash once the page is ready
+  function handleHashShortcut(){
+    if (location.hash === '#deals') {
+      var el = document.getElementById('deals');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (location.hash === '#search') {
+      var box = document.getElementById('searchBox');
+      var input = document.getElementById('searchInput');
+      if (box) {
+        box.classList.add('mobile-active');
+        setTimeout(function(){ input && input.focus(); }, 150);
+      }
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(handleHashShortcut, 300);
+  } else {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(handleHashShortcut, 300); });
+  }
+})();
 </script>
 
 </body>
