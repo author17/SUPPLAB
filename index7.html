@@ -1434,13 +1434,13 @@ ul{ list-style:none; }
   <div class="hamburger-panel">
     <div class="hamburger-header"><strong>Menu</strong><button class="hamburger-close" id="hamburgerClose" aria-label="Close menu">×</button></div>
     <div class="hamburger-section">
+      <h4>Shop by brand</h4>
+      <div id="hamburgerBrandAccordion"></div>
+    </div>
+    <div class="hamburger-section">
       <h4>Shop by category</h4>
       <div id="hamburgerCategoryAccordion"></div>
       <button data-cat="all">All Products</button>
-    </div>
-    <div class="hamburger-section">
-      <h4>Shop by brand</h4>
-      <div id="hamburgerBrandAccordion"></div>
     </div>
     <div class="hamburger-section">
       <h4>Quick links</h4>
@@ -2254,7 +2254,7 @@ function toggleMobileSearch(){
 
 function renderFilterBar(){
   const categories = ["Vitamins & Supplements","Sports Nutrition","Accessories & Gear"];
-  const brands = Array.from(new Set(PRODUCTS.map(p => p.brand || "Other wholesale items")));
+  const brands = sortBrandsCanonical(Array.from(new Set(PRODUCTS.map(p => p.brand || "Other wholesale items"))));
 
   // form counts computed within the current category/brand/deals/new context (real counts, not static)
   const contextProducts = PRODUCTS.filter(p => {
@@ -2329,6 +2329,22 @@ function shopPageHeading(){
   if(filters.category) return { title: filters.category, subtitle: `${count} product${count===1?'':'s'}` };
   return { title: 'Shop All Products', subtitle: null };
 }
+/* Canonical brand display order used everywhere brands are listed
+   (hamburger menu, sidebar filter chips, etc): branded suppliers first,
+   in onboarding order, with the unbranded "Other wholesale items"
+   catch-all bucket always last regardless of product-array position. */
+const BRAND_DISPLAY_ORDER = ['Different Pharm', 'Lazar Angelov Nutrition', 'NutriGenius', 'Other wholesale items'];
+function sortBrandsCanonical(list){
+  return list.slice().sort((a, b) => {
+    const ia = BRAND_DISPLAY_ORDER.indexOf(a);
+    const ib = BRAND_DISPLAY_ORDER.indexOf(b);
+    const ra = ia === -1 ? BRAND_DISPLAY_ORDER.length : ia;
+    const rb = ib === -1 ? BRAND_DISPLAY_ORDER.length : ib;
+    if(ra !== rb) return ra - rb;
+    return a.localeCompare(b);
+  });
+}
+
 /* BRAND_HERO_IMAGES: optional per-brand background art for the page
    header (see .shop-page-header--hero). Supplied by the user as brand
    marketing art, not sourced from a product photo. */
@@ -3067,8 +3083,10 @@ function buildHamburgerBrandMenu(){
   const container = document.getElementById('hamburgerBrandAccordion');
   const brandCounts = {};
   PRODUCTS.forEach(p => { const b = p.brand || "Other wholesale items"; brandCounts[b] = (brandCounts[b]||0)+1; });
+  const orderedBrands = sortBrandsCanonical(Object.keys(brandCounts));
 
-  container.innerHTML = Object.entries(brandCounts).map(([brand, total], i) => {
+  container.innerHTML = orderedBrands.map((brand, i) => {
+    const total = brandCounts[brand];
     const inBrand = PRODUCTS.filter(p => (p.brand || "Other wholesale items") === brand);
     const catCounts = {};
     inBrand.forEach(p => { catCounts[p.category] = (catCounts[p.category]||0)+1; });
