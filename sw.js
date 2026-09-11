@@ -5,7 +5,7 @@
 // cache-first. Nothing here hardcodes the site's HTML filename, so it keeps
 // working no matter what the live page is actually called.
 
-const CACHE_VERSION = 'supplab-v1';
+const CACHE_VERSION = 'supplab-v2';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
