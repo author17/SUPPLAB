@@ -1109,6 +1109,12 @@ ul{ list-style:none; }
 .category-card:hover .category-icon{ color:#fff; }
 .category-card h3{ font-size:13px; }
 .category-card span{ font-size:11px; opacity:.8; }
+@media(max-width:700px){
+  .category-card{ min-height:88px; padding:10px; gap:3px; }
+  .category-icon svg{ width:22px; height:22px; }
+  .category-card h3{ font-size:11px; }
+  .category-card span{ font-size:9.5px; }
+}
 #categoriesSection{ background:var(--black); }
 #categoriesSection .section-title{ color:#fff; }
 #categoriesSection .section-title span{ color:var(--lime); }
