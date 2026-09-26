@@ -400,10 +400,9 @@ section.weekly-deals-band{ height:190px !important; }
    the page, modeled on the same slide/dots/timer pattern as the existing
    product spotlight carousel below -- built entirely from SUPPLAB's own
    promo banners (see rules above the .promo-banner block). ---- */
-.deal-hero{ position:relative; overflow:hidden; height:640px; background:var(--black); }
+.deal-hero{ position:relative; overflow:hidden; width:100%; aspect-ratio:16/9; background:var(--black); }
 .deal-hero-track{ display:flex; height:100%; transition:transform .5s ease; }
 .deal-hero-slide{ flex:0 0 100%; min-width:0; height:100%; }
-@media(max-width:900px){ .deal-hero{ height:360px; } }
 .deal-hero-slide .promo-banner{ margin:0; border-radius:0; max-width:none; height:100%; display:flex; align-items:center; overflow:hidden; }
 .deal-hero-slide .promo-banner-inner{ width:100%; padding-left:66px; padding-right:66px; }
 .deal-hero-slide .deals-percent{ font-size:clamp(38px,6vw,72px); }
@@ -1602,17 +1601,17 @@ ul{ list-style:none; }
   <div class="hamburger-panel">
     <div class="hamburger-header"><strong>Menu</strong><button class="hamburger-close" id="hamburgerClose" aria-label="Close menu">×</button></div>
     <div class="hamburger-section">
-      <h4>Shop by group</h4>
-      <div class="hamburger-group-list" id="hamburgerGroupList"></div>
+      <h4>Shop by category</h4>
+      <div id="hamburgerCategoryAccordion"></div>
+      <button data-cat="all">All Products</button>
     </div>
     <div class="hamburger-section">
       <h4>Shop by brand</h4>
       <div id="hamburgerBrandAccordion"></div>
     </div>
     <div class="hamburger-section">
-      <h4>Shop by category</h4>
-      <div id="hamburgerCategoryAccordion"></div>
-      <button data-cat="all">All Products</button>
+      <h4>Shop by group</h4>
+      <div class="hamburger-group-list" id="hamburgerGroupList"></div>
     </div>
     <div class="hamburger-section">
       <h4>Quick links</h4>
