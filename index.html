@@ -3707,7 +3707,13 @@ function renderHamburgerFilterChips(){
         ${categories.map(c => `<button class="filter-chip ${filters.category===c?'active':''}" onclick="hamburgerCategoryClick('${c.replace(/'/g,"\\'")}')">${c}</button>`).join('')}
       </div>
     </div>
-    ${filters.brand === 'NutriGenius' ? (() => {
+    ${(() => {
+      /* Shop by Category is always visible here (unlike the sidebar's
+         version, which only shows once NutriGenius is the active
+         brand) -- this data only ever applies to NutriGenius's catalog,
+         so rather than making a shopper pick NutriGenius under Brand
+         first, tapping a category directly here does both at once (see
+         hamburgerNgCategoryClick below). Per explicit confirmation. */
       const ngProducts = PRODUCTS.filter(p => p.brand === 'NutriGenius' && p.ngCategory);
       const catsPresent = NG_CATEGORY_TREE.filter(([cat]) => ngProducts.some(p => p.ngCategory === cat));
       const activeCatEntry = filters.ngCategory ? NG_CATEGORY_TREE.find(([cat]) => cat === filters.ngCategory) : null;
@@ -3729,7 +3735,7 @@ function renderHamburgerFilterChips(){
         </div>
       </div>` : ''}
       `;
-    })() : ''}
+    })()}
     <div class="filter-group">
       <div class="filter-group-label">Shop by Brand</div>
       <div class="filter-chip-row">
@@ -3768,8 +3774,27 @@ function hamburgerGoToShop(){
 }
 function hamburgerCategoryClick(cat){ setCategoryFacet(cat); hamburgerGoToShop(); }
 function hamburgerBrandClick(brand){ setBrandFacet(brand); hamburgerGoToShop(); }
-function hamburgerNgCategoryClick(cat){ setNgCategoryFacet(cat); hamburgerGoToShop(); }
-function hamburgerNgSubcategoryClick(sub){ setNgSubcategoryFacet(sub); hamburgerGoToShop(); }
+/* Shop by Category is NutriGenius-only data, so selecting a category
+   (or subcategory) here also selects NutriGenius as the brand if it
+   isn't already -- one tap gets a shopper straight to "Creatine"
+   instead of requiring Brand > NutriGenius first, then Category. */
+function hamburgerNgCategoryClick(cat){
+  filters.brand = 'NutriGenius';
+  filters.ngCategory = (filters.ngCategory===cat) ? null : cat;
+  filters.ngSubcategory = null;
+  visibleCount = PAGE_SIZE;
+  renderFilterBar();
+  renderResults();
+  hamburgerGoToShop();
+}
+function hamburgerNgSubcategoryClick(sub){
+  filters.brand = 'NutriGenius';
+  filters.ngSubcategory = (filters.ngSubcategory===sub) ? null : sub;
+  visibleCount = PAGE_SIZE;
+  renderFilterBar();
+  renderResults();
+  hamburgerGoToShop();
+}
 function hamburgerFormClick(form){ toggleFormFacet(form); hamburgerGoToShop(); }
 /* Price slider: update live while dragging (oninput) WITHOUT closing the
    drawer or navigating -- only 'change' (fired once, on release) jumps
