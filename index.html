@@ -2100,6 +2100,49 @@ const PRODUCT_PHOTOS = JSON.parse(document.getElementById('product-photos').text
 const PRODUCT_PHOTO_BG = JSON.parse(document.getElementById('product-photo-bg').textContent);
 function photoBg(id){ return id.startsWith('PEAK-') ? '#ffffff' : '#000000'; }
 
+/* ---- live pricing (supplab-backend) ----------------------------------
+   PRODUCTS above is the catalog baked into this file at edit time -- fine
+   for everything except price/oldPrice/discountPct, which the SUPPLAB
+   company can now change live through the pricing control panel
+   (pricing-admin.html), stored in supplab-backend's database, not in this
+   file. This fetches the current numbers from that backend right after
+   the page's normal first render (so the page never sits blank waiting on
+   a network call) and, if anything actually changed, re-renders just the
+   product listings so shoppers see current prices without a page reload.
+   If the backend is unreachable for any reason, this silently does
+   nothing and the page keeps showing the baked-in prices below -- it can
+   never break the page.
+   Update LIVE_PRICING_API once supplab-backend is deployed (same URL you
+   put in pricing-admin.html's API_BASE). Leave it blank ('') to disable
+   this entirely and always use the baked-in prices. */
+const LIVE_PRICING_API = '';
+
+async function refreshLivePricing(){
+  if(!LIVE_PRICING_API) return false;
+  let data;
+  try{
+    const res = await fetch(`${LIVE_PRICING_API}/api/products?limit=1000`);
+    if(!res.ok) return false;
+    data = await res.json();
+  }catch(err){
+    console.warn('Live pricing unavailable, showing catalog defaults:', err);
+    return false;
+  }
+  const byId = new Map((data.products || []).map(p => [p.id, p]));
+  let changed = false;
+  for(const product of PRODUCTS){
+    const live = byId.get(product.id);
+    if(!live) continue;
+    if(product.price !== live.price || product.oldPrice !== live.oldPrice || product.discountPct !== live.discountPct){
+      product.price = live.price;
+      product.oldPrice = live.oldPrice;
+      product.discountPct = live.discountPct;
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 const CATEGORY_ICONS = {
   "Vitamins & Supplements": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><line x1="12" y1="4.8" x2="12" y2="19.2" transform="rotate(-45 12 12)"/></svg>',
   "Sports Nutrition": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="3" height="6" rx="1"/><rect x="19" y="9" width="3" height="6" rx="1"/><rect x="5.2" y="7" width="2.6" height="10" rx="1"/><rect x="16.2" y="7" width="2.6" height="10" rx="1"/><line x1="7.8" y1="12" x2="16.2" y2="12"/></svg>',
@@ -4151,6 +4194,16 @@ document.addEventListener("DOMContentLoaded", () => {
   updateAccountUI();
   document.getElementById('wishlistCount').textContent = wishlist.size;
   setTimeout(maybeShowWelcomePopup, 1200);
+
+  // Fire-and-forget: page has already rendered with the baked-in catalog
+  // above, so this only needs to touch anything if live prices actually
+  // differ. See refreshLivePricing()'s comment for the full reasoning.
+  refreshLivePricing().then(changed => {
+    if(!changed) return;
+    buildHomepage();
+    renderFilmstrip();
+    renderResults();
+  });
 });
 </script>
 
