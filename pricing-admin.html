@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUPPLAB — Pricing</title>
+<style>
+  :root{
+    --black:#0B0D0E; --panel:#15181A; --border:#262B2E; --lime:#D4FF00; --lime-dark:#b9df00;
+    --text:#F2F3F0; --muted:#9AA09B; --danger:#FF5A5A; --ok:#5CE187;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:var(--black); color:var(--text); min-height:100vh;
+  }
+  /* ---- login screen ---- */
+  #loginScreen{
+    min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px;
+  }
+  .login-card{
+    width:min(380px,100%); background:var(--panel); border:1px solid var(--border);
+    border-radius:10px; padding:32px 28px; text-align:center;
+  }
+  .login-card h1{ font-size:20px; margin:0 0 6px; }
+  .login-card p{ color:var(--muted); font-size:13px; margin:0 0 22px; line-height:1.5; }
+  .login-card input{
+    width:100%; height:44px; border-radius:6px; border:1px solid var(--border);
+    background:#0F1213; color:var(--text); padding:0 14px; font-size:15px; margin-bottom:14px;
+  }
+  .login-card input:focus{ outline:2px solid var(--lime); border-color:var(--lime); }
+  .login-card button{
+    width:100%; height:44px; border-radius:6px; border:0; background:var(--lime);
+    color:#0B0D0E; font-weight:800; font-size:14px; cursor:pointer;
+  }
+  .login-card button:hover{ background:var(--lime-dark); }
+  .login-error{ color:var(--danger); font-size:13px; margin-top:12px; min-height:16px; }
+
+  /* ---- panel ---- */
+  #panel{ display:none; }
+  .topbar{
+    position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding:16px 20px; background:var(--panel); border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .topbar h1{ font-size:16px; margin:0; font-weight:800; }
+  .topbar h1 span{ color:var(--lime); }
+  .topbar-right{ display:flex; align-items:center; gap:10px; }
+  #searchBox{
+    height:38px; width:min(280px,50vw); border-radius:6px; border:1px solid var(--border);
+    background:#0F1213; color:var(--text); padding:0 12px; font-size:13.5px;
+  }
+  .btn-ghost{
+    height:38px; padding:0 16px; border-radius:6px; border:1px solid var(--border);
+    background:transparent; color:var(--text); font-size:13px; cursor:pointer;
+  }
+  .btn-ghost:hover{ border-color:var(--lime); color:var(--lime); }
+  #statusLine{ padding:10px 20px; font-size:12.5px; color:var(--muted); }
+
+  .table-wrap{ padding:0 20px 40px; overflow-x:auto; }
+  table{ width:100%; border-collapse:collapse; min-width:780px; }
+  thead th{
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--muted); padding:10px 10px; border-bottom:1px solid var(--border); background:var(--black);
+  }
+  tbody td{ padding:8px 10px; border-bottom:1px solid #1B1F21; font-size:13.5px; vertical-align:middle; }
+  tbody tr:hover{ background:#111415; }
+  .brand-name{ color:var(--muted); font-size:11.5px; }
+  .prod-name{ font-weight:600; }
+  .num-input{
+    width:86px; height:32px; border-radius:5px; border:1px solid var(--border);
+    background:#0F1213; color:var(--text); padding:0 8px; font-size:13px;
+  }
+  .num-input:focus{ outline:1.5px solid var(--lime); border-color:var(--lime); }
+  .row-save{
+    height:32px; padding:0 14px; border-radius:5px; border:0; background:var(--lime);
+    color:#0B0D0E; font-weight:800; font-size:12px; cursor:pointer; white-space:nowrap;
+  }
+  .row-save:disabled{ background:#3a3d2c; color:#7a7d6c; cursor:default; }
+  .row-save.saved{ background:var(--ok); }
+  .row-msg{ font-size:11px; color:var(--danger); margin-top:4px; min-height:14px; }
+  .dirty-dot{ display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--lime); margin-right:6px; visibility:hidden; }
+  tr.dirty .dirty-dot{ visibility:visible; }
+  .empty-note{ color:var(--muted); font-size:13px; padding:30px 0; text-align:center; }
+</style>
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>SUPPLAB <span style="color:#D4FF00">Pricing</span></h1>
+    <p>Enter the pricing panel password given to you to update product prices and discounts.</p>
+    <input id="passwordInput" type="password" placeholder="Password" autocomplete="off">
+    <button id="loginBtn">Unlock</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<div id="panel">
+  <div class="topbar">
+    <h1>SUPPLAB <span>Pricing Panel</span></h1>
+    <div class="topbar-right">
+      <input id="searchBox" type="text" placeholder="Search by name or brand...">
+      <button class="btn-ghost" id="logoutBtn">Log out</button>
+    </div>
+  </div>
+  <div id="statusLine">Loading products…</div>
+  <div class="table-wrap">
+    <table id="productTable" style="display:none">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Product</th>
+          <th>Price (€)</th>
+          <th>Old price (€)</th>
+          <th>Discount %</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="productTbody"></tbody>
+    </table>
+    <div class="empty-note" id="emptyNote" style="display:none">No products match your search.</div>
+  </div>
+</div>
+
+<script>
+// ---------------------------------------------------------------------
+// Update this once the backend is deployed (Railway gives you a URL like
+// https://supplab-backend-production.up.railway.app, or point it at your
+// own custom domain, e.g. https://api.supplab.com, once you set one up).
+// ---------------------------------------------------------------------
+const API_BASE = 'https://YOUR-RAILWAY-APP.up.railway.app';
+
+const TOKEN_KEY = 'supplab_pricing_token';
+let products = [];
+let filterText = '';
+
+const loginScreen = document.getElementById('loginScreen');
+const panel = document.getElementById('panel');
+const passwordInput = document.getElementById('passwordInput');
+const loginBtn = document.getElementById('loginBtn');
+const loginError = document.getElementById('loginError');
+const statusLine = document.getElementById('statusLine');
+const productTable = document.getElementById('productTable');
+const productTbody = document.getElementById('productTbody');
+const emptyNote = document.getElementById('emptyNote');
+const searchBox = document.getElementById('searchBox');
+const logoutBtn = document.getElementById('logoutBtn');
+
+function getToken(){ return localStorage.getItem(TOKEN_KEY) || ''; }
+function setToken(t){ localStorage.setItem(TOKEN_KEY, t); }
+function clearToken(){ localStorage.removeItem(TOKEN_KEY); }
+
+function showLogin(message){
+  panel.style.display = 'none';
+  loginScreen.style.display = 'flex';
+  loginError.textContent = message || '';
+}
+function showPanel(){
+  loginScreen.style.display = 'none';
+  panel.style.display = 'block';
+}
+
+async function apiFetch(path, opts = {}){
+  const res = await fetch(API_BASE + path, {
+    ...opts,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + getToken(),
+      ...(opts.headers || {}),
+    },
+  });
+  if (res.status === 401){
+    clearToken();
+    showLogin('Session expired — please log in again.');
+    throw new Error('unauthorized');
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || ('Request failed (' + res.status + ')'));
+  return data;
+}
+
+async function doLogin(){
+  const token = passwordInput.value.trim();
+  if (!token){ loginError.textContent = 'Enter the password.'; return; }
+  loginBtn.disabled = true;
+  loginError.textContent = '';
+  try{
+    const res = await fetch(API_BASE + '/api/pricing/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Incorrect password.');
+    setToken(token);
+    showPanel();
+    loadProducts();
+  } catch(err){
+    loginError.textContent = err.message.includes('fetch')
+      ? 'Could not reach the pricing server. Check your connection and try again.'
+      : err.message;
+  } finally {
+    loginBtn.disabled = false;
+  }
+}
+
+async function loadProducts(){
+  statusLine.textContent = 'Loading products…';
+  productTable.style.display = 'none';
+  try{
+    const data = await apiFetch('/api/pricing/products');
+    products = data.products;
+    statusLine.textContent = products.length + ' products — changes go live on the site as soon as you save a row.';
+    renderTable();
+  } catch(err){
+    if (err.message !== 'unauthorized'){
+      statusLine.textContent = 'Could not load products: ' + err.message;
+    }
+  }
+}
+
+function fmtNum(n){ return (n === null || n === undefined) ? '' : n; }
+
+function renderTable(){
+  const q = filterText.trim().toLowerCase();
+  const filtered = q
+    ? products.filter(p => p.name.toLowerCase().includes(q) || (p.brand || '').toLowerCase().includes(q))
+    : products;
+
+  productTbody.innerHTML = '';
+  if (filtered.length === 0){
+    productTable.style.display = 'none';
+    emptyNote.style.display = 'block';
+    return;
+  }
+  emptyNote.style.display = 'none';
+  productTable.style.display = 'table';
+
+  const frag = document.createDocumentFragment();
+  for (const p of filtered){
+    const tr = document.createElement('tr');
+    tr.dataset.id = p.id;
+
+    const priceInput = mkNumInput(fmtNum(p.price));
+    const oldPriceInput = mkNumInput(fmtNum(p.oldPrice));
+    const discInput = mkNumInput(fmtNum(p.discountPct), 0, 100);
+
+    [priceInput, oldPriceInput, discInput].forEach(inp => {
+      inp.addEventListener('input', () => { tr.classList.add('dirty'); saveBtn.disabled = false; saveBtn.classList.remove('saved'); saveBtn.textContent = 'Save'; });
+    });
+
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'row-save';
+    saveBtn.textContent = 'Save';
+    saveBtn.disabled = true;
+
+    const rowMsg = document.createElement('div');
+    rowMsg.className = 'row-msg';
+
+    saveBtn.addEventListener('click', async () => {
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving…';
+      rowMsg.textContent = '';
+      const payload = {
+        price: priceInput.value === '' ? null : Number(priceInput.value),
+        oldPrice: oldPriceInput.value === '' ? null : Number(oldPriceInput.value),
+        discountPct: discInput.value === '' ? 0 : Number(discInput.value),
+      };
+      try{
+        const updated = await apiFetch('/api/pricing/' + encodeURIComponent(p.id), {
+          method: 'PATCH',
+          body: JSON.stringify(payload),
+        });
+        Object.assign(p, updated);
+        tr.classList.remove('dirty');
+        saveBtn.classList.add('saved');
+        saveBtn.textContent = 'Saved ✓';
+        setTimeout(() => { saveBtn.textContent = 'Save'; saveBtn.classList.remove('saved'); }, 1800);
+      } catch(err){
+        if (err.message !== 'unauthorized'){
+          rowMsg.textContent = err.message;
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save';
+        }
+      }
+    });
+
+    const tdCheck = document.createElement('td');
+    tdCheck.innerHTML = '<span class="dirty-dot"></span>';
+
+    const tdName = document.createElement('td');
+    tdName.innerHTML = `<div class="prod-name">${escapeHtml(p.name)}</div><div class="brand-name">${escapeHtml(p.brand || '')}${p.pack ? ' · ' + escapeHtml(p.pack) : ''}</div>`;
+
+    const tdPrice = document.createElement('td'); tdPrice.appendChild(priceInput);
+    const tdOld = document.createElement('td'); tdOld.appendChild(oldPriceInput);
+    const tdDisc = document.createElement('td'); tdDisc.appendChild(discInput);
+    const tdSave = document.createElement('td'); tdSave.appendChild(saveBtn); tdSave.appendChild(rowMsg);
+
+    tr.append(tdCheck, tdName, tdPrice, tdOld, tdDisc, tdSave);
+    frag.appendChild(tr);
+  }
+  productTbody.appendChild(frag);
+}
+
+function mkNumInput(value, min, max){
+  const inp = document.createElement('input');
+  inp.type = 'number';
+  inp.className = 'num-input';
+  inp.step = '0.01';
+  inp.min = min !== undefined ? min : 0;
+  if (max !== undefined) inp.max = max;
+  inp.value = value;
+  return inp;
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+let searchDebounce;
+searchBox.addEventListener('input', () => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => { filterText = searchBox.value; renderTable(); }, 150);
+});
+
+loginBtn.addEventListener('click', doLogin);
+passwordInput.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+logoutBtn.addEventListener('click', () => { clearToken(); products = []; showLogin(''); passwordInput.value=''; });
+
+// Boot: if a token is already stored, try it straight away instead of
+// showing the login screen again on every visit.
+(function boot(){
+  if (getToken()){
+    showPanel();
+    loadProducts();
+  } else {
+    showLogin('');
+  }
+})();
+</script>
+</body>
+</html>
