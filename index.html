@@ -3939,9 +3939,9 @@ function renderHamburgerFilterChips(){
     </div>
     ${forms.length ? `
     <div class="filter-group">
-      <div class="filter-group-label">Form</div>
-      <div class="filter-chip-row">
-        ${forms.map(f => `<button class="filter-chip ${filters.forms.has(f)?'active':''}" onclick="hamburgerFormClick('${f}')">${f} (${formCounts[f]})</button>`).join('')}
+      <div class="filter-group-label hamburger-section-title">Form</div>
+      <div class="hamburger-brand-list">
+        ${forms.map(f => `<button class="hamburger-cat-label ${filters.forms.has(f)?'active':''}" onclick="hamburgerFormClick('${f}')">${f} <span class="hamburger-group-count">${formCounts[f]}</span></button>`).join('')}
       </div>
     </div>` : ''}
     <div class="filter-group">
