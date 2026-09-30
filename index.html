@@ -3907,7 +3907,7 @@ function renderHamburgerFilterChips(){
           if(!inCat.length) return '';
           const subCounts = {};
           inCat.forEach(p => { if(p.menuSubcategory) subCounts[p.menuSubcategory] = (subCounts[p.menuSubcategory]||0)+1; });
-          const subsPresent = subs.filter(s => subCounts[s]);
+          const subsPresent = subs;
           const subId = `hamMenuCatSub${i}`;
           const isActiveCat = filters.menuCategory === cat;
           return `
@@ -3917,7 +3917,7 @@ function renderHamburgerFilterChips(){
           </div>
           ${subsPresent.length ? `
           <div class="hamburger-cat-sub ${isActiveCat?'open':''}" id="${subId}">
-            ${subsPresent.map(sub => `<button class="${filters.menuSubcategory===sub?'active':''}" onclick="hamburgerMenuSubcategoryClick('${escAttr(sub)}')">${sub} <span class="hamburger-group-count">${subCounts[sub]}</span></button>`).join('')}
+            ${subsPresent.map(sub => `<button class="${filters.menuSubcategory===sub?'active':''}" onclick="hamburgerMenuSubcategoryClick('${escAttr(sub)}')">${sub} <span class="hamburger-group-count">${subCounts[sub]||0}</span></button>`).join('')}
           </div>` : ''}
           `;
         }).join('')}
