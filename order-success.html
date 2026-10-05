@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Order received | SUPPLAB</title>
+<link rel="icon" href="icon-192.png">
+<style>
+  :root{ --lime:#D4FF00; --black:#0B0D0E; --graphite:#171A1C; --text:#F2F2EE; --muted:#A9ABA5; --border:#2A2E31; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 16px;
+        background:var(--black); color:var(--text); font-family:Arial,Helvetica,sans-serif; }
+  .card{ width:100%; max-width:520px; background:var(--graphite); border:1px solid var(--border); border-radius:16px;
+         padding:36px 28px; text-align:center; }
+  .tick{ width:64px; height:64px; margin:0 auto 18px; border-radius:50%; background:var(--lime); color:var(--black);
+         display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:900; }
+  h1{ margin:0 0 10px; font-size:26px; letter-spacing:.01em; }
+  p{ margin:0 0 14px; line-height:1.55; color:var(--muted); font-size:15px; }
+  .order{ display:inline-block; margin:6px 0 18px; padding:8px 16px; border:1px solid var(--lime); border-radius:999px;
+          color:var(--lime); font-weight:700; letter-spacing:.04em; }
+  .order[hidden]{ display:none; }
+  a.btn{ display:inline-block; margin-top:8px; padding:13px 28px; border-radius:999px; background:var(--lime); color:var(--black);
+         font-weight:900; text-decoration:none; font-size:14px; letter-spacing:.03em; }
+  a.btn:hover{ filter:brightness(.92); }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="tick" aria-hidden="true">&#10003;</div>
+    <h1>Thank you for your order</h1>
+    <div class="order" id="orderBox" hidden>Order #<span id="orderNum"></span></div>
+    <p>Your payment was received and your order is being processed. Keep your order number for any questions about it.</p>
+    <a class="btn" href="/">Continue shopping</a>
+  </main>
+<script>
+  (function(){
+    try{
+      var id = new URLSearchParams(location.search).get('order') || '';
+      if(/^\d{1,12}$/.test(id)){
+        document.getElementById('orderNum').textContent = id;
+        document.getElementById('orderBox').hidden = false;
+      }
+    }catch(e){}
+  })();
+</script>
+</body>
+</html>
