@@ -2142,7 +2142,7 @@ function photoBg(id){ return id.startsWith('PEAK-') ? '#ffffff' : '#000000'; }
    Update LIVE_PRICING_API once supplab-backend is deployed (same URL you
    put in pricing-admin.html's API_BASE). Leave it blank ('') to disable
    this entirely and always use the baked-in prices. */
-const LIVE_PRICING_API = 'https://supplab-backend-production.up.railway.app';
+const LIVE_PRICING_API = 'https://supplab-backend.onrender.com';
 
 async function refreshLivePricing(){
   if(!LIVE_PRICING_API) return false;
