@@ -36,6 +36,7 @@
 <script>
   (function(){
     try{
+      try{ localStorage.removeItem('supplab_cart'); }catch(e){}
       var id = new URLSearchParams(location.search).get('order') || '';
       if(/^\d{1,12}$/.test(id)){
         document.getElementById('orderNum').textContent = id;
