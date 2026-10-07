@@ -4688,5 +4688,43 @@ if(document.readyState === 'loading') document.addEventListener('DOMContentLoade
 })();
 </script>
 <!-- SUPPLAB-I18N-END -->
+<!-- SUPPLAB-BRANDS-START -->
+<style>
+#brands.image-banner{ display:none !important; }
+.brand-tiles{ max-width:1200px; margin:0 auto; padding:6px 4% 26px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.brand-tile{ --bc:#D4FF00; position:relative; display:flex; flex-direction:column; align-items:center; gap:10px; padding:16px 12px 14px; background:#0b0d0e; border:2px solid var(--bc); border-radius:14px; cursor:pointer; color:#fff; font:inherit; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,.04) inset, 0 0 22px color-mix(in srgb, var(--bc) 38%, transparent); transition:transform .18s ease, box-shadow .18s ease; }
+.brand-tile:hover, .brand-tile:focus-visible{ transform:translateY(-3px); box-shadow:0 0 0 1px rgba(255,255,255,.06) inset, 0 0 34px color-mix(in srgb, var(--bc) 62%, transparent); outline:none; }
+.brand-tile-logo{ width:100%; aspect-ratio:1/1; max-width:170px; object-fit:contain; border-radius:10px; background:#000; display:block; }
+.brand-tile-name{ font-size:15px; font-weight:900; letter-spacing:.01em; color:var(--bc); line-height:1.2; }
+.brand-tile-count{ font-size:12px; font-weight:600; color:#b9bdc1; }
+@media(max-width:700px){ .brand-tiles{ grid-template-columns:repeat(2,1fr); gap:12px; padding:4px 4% 20px; } .brand-tile{ padding:12px 8px 12px; } .brand-tile-name{ font-size:13px; } .brand-tile-logo{ max-width:118px; } }
+</style>
+<script>
+(function(){
+  try{
+    var BRANDS = [
+      { name:'NutriGenius', color:'#FF1FA0' },
+      { name:'Peak Wellness & Nutrition', color:'#E3B73C' },
+      { name:'Different Pharm', color:'#2FB34A' },
+      { name:'Lazar Angelov Nutrition', color:'#E02A2A' }
+    ];
+    var anchor = document.getElementById('brands'); if(!anchor || document.getElementById('brandTiles')) return;
+    var sec = document.createElement('section'); sec.id = 'brandTiles'; sec.className = 'brand-tiles'; sec.setAttribute('aria-label','Shop by brand');
+    BRANDS.forEach(function(b){
+      var n = (typeof PRODUCTS !== 'undefined') ? PRODUCTS.filter(function(p){ return p.brand === b.name; }).length : 0;
+      var logo = (typeof BRAND_LOGO_IMAGES !== 'undefined') ? BRAND_LOGO_IMAGES[b.name] : '';
+      var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'brand-tile'; btn.style.setProperty('--bc', b.color);
+      btn.setAttribute('aria-label','Shop ' + b.name);
+      if(logo){ var im = document.createElement('img'); im.className = 'brand-tile-logo'; im.src = logo; im.alt = b.name + ' logo'; im.loading = 'lazy'; btn.appendChild(im); }
+      var nm = document.createElement('span'); nm.className = 'brand-tile-name'; nm.textContent = b.name; btn.appendChild(nm);
+      if(n){ var ct = document.createElement('span'); ct.className = 'brand-tile-count'; ct.textContent = n + ' products'; btn.appendChild(ct); }
+      btn.addEventListener('click', function(){ filterAndScroll('brand', b.name); });
+      sec.appendChild(btn);
+    });
+    anchor.parentNode.insertBefore(sec, anchor.nextSibling);
+  }catch(e){ if(window.console) console.warn('brand tiles skipped', e); }
+})();
+</script>
+<!-- SUPPLAB-BRANDS-END -->
 </body>
 </html>
