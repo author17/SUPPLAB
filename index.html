@@ -4464,6 +4464,16 @@ var IGN = {g:1,kg:1,ml:1,mcg:1,mg:1,iu:1,x:1,sc:1,l:1};
 var SKIP = {SCRIPT:1,STYLE:1,NOSCRIPT:1,TEXTAREA:1,CODE:1};
 var ATTRS = ['placeholder','title','aria-label'];
 var applying = false, queue = [], scheduled = false;
+/* keep browser auto-translate (Chrome / in-app browsers) away from this already-localised page,
+   otherwise it fights with the language switcher and mixes languages */
+try{
+  document.documentElement.setAttribute('translate','no');
+  document.documentElement.classList.add('notranslate');
+  if(!document.querySelector('meta[name="google"][content="notranslate"]')){
+    var mt = document.createElement('meta'); mt.name = 'google'; mt.content = 'notranslate'; document.head.appendChild(mt);
+  }
+}catch(e){}
+var flushTimes = [];
 
 function norm(s){ return s.replace(/\s+/g,' ').trim(); }
 function esc(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
@@ -4611,6 +4621,9 @@ function procTree(root, c){
 /* ---- observer ---- */
 function flush(){
   scheduled = false;
+  var now = Date.now(); flushTimes.push(now);
+  while(flushTimes.length && now - flushTimes[0] > 2000) flushTimes.shift();
+  if(flushTimes.length > 300){ queue = []; try{ mo.disconnect(); }catch(e){} setTimeout(function(){ flushTimes = []; startObserving(); }, 3000); return; }
   var items = queue; queue = [];
   if(lang === 'EN') return;
   var c = getLang(lang); if(!c) return;
@@ -4690,8 +4703,7 @@ if(document.readyState === 'loading') document.addEventListener('DOMContentLoade
 <!-- SUPPLAB-I18N-END -->
 <!-- SUPPLAB-BRANDS-START -->
 <style>
-#brands.image-banner{ display:none !important; }
-.brand-tiles{ max-width:1200px; margin:0 auto; padding:6px 4% 26px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.brand-tiles{ max-width:1200px; margin:0 auto; padding:18px 4% 26px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 .brand-tile{ --bc:#D4FF00; position:relative; display:flex; flex-direction:column; align-items:center; gap:10px; padding:16px 12px 14px; background:#0b0d0e; border:2px solid var(--bc); border-radius:14px; cursor:pointer; color:#fff; font:inherit; text-align:center; box-shadow:0 0 0 1px rgba(255,255,255,.04) inset, 0 0 22px color-mix(in srgb, var(--bc) 38%, transparent); transition:transform .18s ease, box-shadow .18s ease; }
 .brand-tile:hover, .brand-tile:focus-visible{ transform:translateY(-3px); box-shadow:0 0 0 1px rgba(255,255,255,.06) inset, 0 0 34px color-mix(in srgb, var(--bc) 62%, transparent); outline:none; }
 .brand-tile-logo{ width:100%; aspect-ratio:1/1; max-width:170px; object-fit:contain; border-radius:10px; background:#000; display:block; }
