@@ -4643,6 +4643,55 @@ function startObserving(){
   mo.observe(document.body, { childList:true, subtree:true, characterData:true, attributes:true, attributeFilter:ATTRS });
 }
 
+
+/* ---- flags (inline SVG, because Windows browsers do not draw flag emoji) ---- */
+var FLAG_SVG = {
+  EN:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0,0L60,40M60,0L0,40" stroke="#fff" stroke-width="8"/><path d="M0,0L60,40M60,0L0,40" stroke="#C8102E" stroke-width="3"/><path d="M30,0V40M0,20H60" stroke="#fff" stroke-width="12"/><path d="M30,0V40M0,20H60" stroke="#C8102E" stroke-width="7"/></svg>',
+  EL:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 18"><rect width="27" height="18" fill="#0D5EAF"/><g fill="#fff"><rect y="2" width="27" height="2"/><rect y="6" width="27" height="2"/><rect y="10" width="27" height="2"/><rect y="14" width="27" height="2"/></g><rect width="10" height="10" fill="#0D5EAF"/><rect x="4" width="2" height="10" fill="#fff"/><rect y="4" width="10" height="2" fill="#fff"/></svg>',
+  DE:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 5 3"><rect width="5" height="3" fill="#FFCE00"/><rect width="5" height="2" fill="#D00"/><rect width="5" height="1" fill="#000"/></svg>',
+  RU:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 6"><rect width="9" height="6" fill="#D52B1E"/><rect width="9" height="4" fill="#0039A6"/><rect width="9" height="2" fill="#fff"/></svg>',
+  HE:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 16"><rect width="22" height="16" fill="#fff"/><rect y="1.8" width="22" height="2.2" fill="#0038B8"/><rect y="12" width="22" height="2.2" fill="#0038B8"/><g fill="none" stroke="#0038B8" stroke-width=".7"><path d="M11 4.6L14.2 10.2H7.8Z"/><path d="M11 11.4L7.8 5.8H14.2Z"/></g></svg>'
+};
+function flagSrc(code){ return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(FLAG_SVG[code] || ''); }
+function flagImg(code){
+  var im = document.createElement('img'); im.src = flagSrc(code); im.alt = ''; im.width = 22; im.height = 15;
+  im.style.cssText = 'width:22px;height:15px;object-fit:cover;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,.25);flex:none;display:inline-block;vertical-align:middle;';
+  im.setAttribute('aria-hidden','true'); return im;
+}
+var ddBtn = null, ddMenu = null;
+function initFlagDropdown(){
+  var pick = document.querySelector('.language-picker'); if(!pick || document.getElementById('langDD')) return;
+  var st = document.createElement('style');
+  st.textContent = '.language-picker > span, .language-picker > select{ display:none !important; } .language-picker{ position:relative; padding:0 !important; border:0 !important; background:none !important; } '
+    + '.lang-dd-btn{ display:flex; align-items:center; gap:6px; background:rgba(212,255,0,.05); color:#fff; border:1px solid rgba(212,255,0,.35); border-radius:4px; padding:5px 8px; font-weight:800; font-size:12px; cursor:pointer; white-space:nowrap; } '
+    + '.lang-dd-menu{ display:none; position:absolute; right:0; top:calc(100% + 6px); min-width:170px; background:#fff; color:#111; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.35); padding:6px; z-index:100000; list-style:none; margin:0; } '
+    + '.lang-dd.open .lang-dd-menu{ display:block; } .lang-dd-menu li{ display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:7px; font-size:14px; font-weight:700; cursor:pointer; color:#111; } '
+    + '.lang-dd-menu li:hover, .lang-dd-menu li.on{ background:#f1f4d4; } .lang-dd-caret{ font-size:10px; opacity:.8; }';
+  document.head.appendChild(st);
+  var wrap = document.createElement('div'); wrap.id = 'langDD'; wrap.className = 'lang-dd'; wrap.setAttribute('dir','ltr');
+  ddBtn = document.createElement('button'); ddBtn.type = 'button'; ddBtn.className = 'lang-dd-btn'; ddBtn.setAttribute('aria-haspopup','listbox'); ddBtn.setAttribute('aria-label','Language');
+  ddMenu = document.createElement('ul'); ddMenu.className = 'lang-dd-menu'; ddMenu.setAttribute('role','listbox');
+  LANGS.forEach(function(l){
+    var li = document.createElement('li'); li.setAttribute('role','option'); li.setAttribute('data-lang', l[0]);
+    li.appendChild(flagImg(l[0])); var t = document.createElement('span'); t.textContent = l[1]; li.appendChild(t);
+    li.addEventListener('click', function(e){ e.stopPropagation(); wrap.classList.remove('open'); setLang(l[0], true); });
+    ddMenu.appendChild(li);
+  });
+  ddBtn.addEventListener('click', function(e){ e.stopPropagation(); wrap.classList.toggle('open'); });
+  document.addEventListener('click', function(){ wrap.classList.remove('open'); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') wrap.classList.remove('open'); });
+  wrap.appendChild(ddBtn); wrap.appendChild(ddMenu); pick.appendChild(wrap);
+  paintDD();
+}
+function paintDD(){
+  if(!ddBtn) return;
+  ddBtn.innerHTML = '';
+  ddBtn.appendChild(flagImg(lang));
+  var c = document.createElement('span'); c.textContent = lang; ddBtn.appendChild(c);
+  var ca = document.createElement('span'); ca.className = 'lang-dd-caret'; ca.textContent = '\u25BE'; ddBtn.appendChild(ca);
+  [].forEach.call(ddMenu.querySelectorAll('li'), function(li){ li.classList.toggle('on', li.getAttribute('data-lang') === lang); });
+}
+
 /* ---- language switching ---- */
 function setLang(code, persist){
   code = (code || 'EN').toUpperCase();
@@ -4655,7 +4704,7 @@ function setLang(code, persist){
   procTree(document.body, c);
   startObserving();
   var sel = document.getElementById('languageSelect'); if(sel && sel.value !== code) sel.value = code;
-  paintMenuRow();
+  paintMenuRow(); paintDD();
   if(persist){ try{ localStorage.setItem(STORE_KEY, code); }catch(e){} }
   try{ window.dispatchEvent(new CustomEvent('supplab:languagechange', { detail:{ lang: code } })); }catch(e){}
 }
@@ -4673,8 +4722,8 @@ function initMenuRow(){
   var row = document.createElement('div'); row.id = 'langMenuRow'; row.setAttribute('dir','ltr');
   row.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-bottom:1px solid var(--border);';
   LANGS.forEach(function(l){
-    var b = document.createElement('button'); b.type = 'button'; b.textContent = l[1]; b.setAttribute('data-lang', l[0]);
-    b.style.cssText = 'border:1px solid var(--border);background:#fff;color:#111;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;';
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-lang', l[0]); b.appendChild(flagImg(l[0])); var bt = document.createElement('span'); bt.textContent = l[1]; bt.style.marginInlineStart = '8px'; b.appendChild(bt);
+    b.style.cssText = 'display:inline-flex;align-items:center;border:1px solid var(--border);background:#fff;color:#111;border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;';
     b.addEventListener('click', function(){ setLang(l[0], true); });
     row.appendChild(b);
   });
@@ -4690,6 +4739,7 @@ function paintMenuRow(){
 }
 function init(){
   initMenuRow();
+  initFlagDropdown();
   initSelector();
   var saved = null;
   try{ saved = localStorage.getItem(STORE_KEY); }catch(e){}
