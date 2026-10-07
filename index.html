@@ -3552,7 +3552,7 @@ function updateCartUI(){
   const shipCents = ids.length ? shipFeeCents(shipCountryCode()) : 0;
   const shipRow = document.getElementById('cartShippingRow');
   if(shipRow){ shipRow.style.display = ids.length ? 'flex' : 'none'; shipRow.innerHTML = `<span>Shipping</span><span>${shipCents ? moneyFmt(shipCents/100) : 'FREE'}</span>`; }
-  document.getElementById('cartSubtotal').textContent = moneyFmt(finalTotal + shipCents/100);
+  window.__cartSnap = { raw: Math.round(rawSubtotal*100), items: discountedCents, ship: shipCents, pct: appliedPct }; document.getElementById('cartSubtotal').textContent = moneyFmt(finalTotal + shipCents/100);
 }
 document.getElementById('cartOpenBtn').addEventListener('click', () => document.getElementById('cartOverlay').classList.add('active'));
 document.getElementById('cartCloseBtn').addEventListener('click', () => document.getElementById('cartOverlay').classList.remove('active'));
@@ -3582,7 +3582,7 @@ async function startStripeCheckout(){
     if(!res.ok || !data.checkoutUrl){
       throw new Error(res.status >= 500 || !data.error ? 'Checkout is temporarily unavailable. Please try again in a moment.' : data.error);
     }
-    window.location.href = data.checkoutUrl;
+    try{ var cs = window.__cartSnap || {}; localStorage.setItem('supplab_last_order', JSON.stringify({ order: data.orderId, t: Date.now(), email: (account && account.email) || '', raw: cs.raw || 0, items: cs.items || 0, ship: cs.ship || 0, pct: cs.pct || 0, lines: Object.keys(cart).map(function(id){ var p = byId(id); if(!p) return null; return { n: p.name, pack: p.pack || '', q: cart[id], c: Math.round(Math.round(p.price*100)*(100-(cs.pct||0))/100) }; }).filter(Boolean) })); }catch(e){} window.location.href = data.checkoutUrl;
   }catch(err){
     showToast(err && err.message ? err.message : 'Checkout is temporarily unavailable. Please try again.');
     btn.disabled = false; btn.textContent = label; checkoutBusy = false;
